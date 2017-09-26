@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <!--button menuToggle *ngIf="!selectedItem">
+      <ion-icon name="menu"></ion-icon>
+    </button-->
+    <ion-title>{{selectedItem.title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="amiri">
+  <ion-card>
+      <ion-card-header dir="rtl" class="titleCard">
+          النص
+      </ion-card-header>
+      <ion-card-content>
+          <div dir="rtl" class="textCourse" [innerHTML]="selectedItem.text"></div>
+      </ion-card-content>
+  </ion-card>
+  <ion-card>
+      <ion-card-header class="titleCard" dir="rtl">
+          الكلمات الجديدة
+      </ion-card-header>
+  <ion-list dir="rtl">
+  <!--button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"-->
+    <button ion-item  *ngFor="let word of course_words | async" (click)="play(word)">
+    <!--ion-icon name="{{item.icon}}" item-left></ion-icon-->
+    <ion-icon name="volume-up" item-end class= "iconic"></ion-icon>
+    {{word.arabic}} : {{word.french}}
+    <!--div class="item-note" item-right>
+      {{item.note}}
+    </div-->
+    </button>
+  </ion-list>
+</ion-card>
+<ion-card>
+    <ion-card-header class="titleCard" dir="rtl">
+        القواعد
+    </ion-card-header>
+<div class="rulesCourse" [innerHTML]="selectedItem.rules"></div>
+</ion-card>
+</ion-content>

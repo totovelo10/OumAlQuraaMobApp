@@ -1,0 +1,87 @@
+.circle {
+    
+    border-radius: 50%;
+    border: solid 10px;
+    margin: auto;
+    height: 300px;
+    width: 300px;
+    margin-top: 25%;
+   
+  }
+
+  
+  
+  .cgrt{
+    margin: auto;
+    height: 33%;
+    //color: white;
+    text-align: center;
+    font-size: 35px;
+  }
+
+  .bkg1 {
+    background-color:  #FF0004;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: white;  
+  }
+  .bkgh1 {
+    background-color:  #FF0004;
+    display: flex;
+    height: 100%;
+    color: white;  
+  }
+  .title1{
+   color:white
+  }
+  .bkg2 {
+    background-color:  #F85100;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: white;  
+  }
+
+  .bkg3 {
+    background-color:  #F8EB00;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: white;  
+  }
+  .bkg4 {
+    background-color:  #85E60B;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: white;  
+  }
+  .note{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 80px;
+    //text-align: center;
+  }
+.backToCourses1{
+   
+    color: #FF0004;
+    background-color:white;
+}
+.backToCourses2{
+  
+   color: #F85100;
+   background-color:white;
+}
+.backToCourses3{
+  
+   color: #F8EB00;
+   background-color:white;
+}
+.backToCourses4{
+  
+   color: #85E60B;
+   background-color:white;
+}

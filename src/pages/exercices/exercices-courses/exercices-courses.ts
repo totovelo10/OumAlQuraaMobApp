@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
+import { FrenchToArabicPage } from '../french-to-arabic/french-to-arabic';
 @Component({
     selector: 'exercices-courses',
     templateUrl: 'exercices-courses.html'
@@ -20,7 +20,7 @@ import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
         console.log('hiiiiddddde'+this.hideback)
         // set our app's pages
         this.exercices = [
-          { title: 'De l\'arabe au français', component: ArabicToFrenchPage }
+          { title: 'Du français à l\'arabe', component: FrenchToArabicPage }
           //{ title:'Exercices', component: ExercicesPage }
         ];
       }

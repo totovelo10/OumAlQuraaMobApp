@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CorrectionArabicToFrenchPage } from '../../../pages/corrections/arabic-to-french/correction-arabic-to-french';
+import { CorrectionFrenchToArabicPage } from '../../../pages/corrections/french-to-arabic/correction-french-to-arabic';
 import { Word } from '../../../interfaces/word';
 
 @Component({
@@ -51,7 +51,7 @@ export class ResultsPage {
     this.navCtrl.popToRoot();
   }
   goToCorrection(){
-    this.navCtrl.push(CorrectionArabicToFrenchPage, {
+    this.navCtrl.push(CorrectionFrenchToArabicPage, {
       exWordsSearched: this.exWordsSearched,
       userChoices: this.userChoices,
       displayedWords:this.displayedWords,

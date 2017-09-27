@@ -55,8 +55,6 @@ export class CorrectionArabicToFrenchPage {
         this.userChoiceAnswer = this.userchoices[i].arabic;
         this.displayedWordsChoosen = this.displayedWords[i]
 
-        
-
       }
 
 

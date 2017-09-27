@@ -1,22 +1,42 @@
 <ion-header>
-        <ion-navbar>
-          <button ion-button menuToggle>
+  <ion-navbar>
+    <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
           </button>
-          <ion-title>Correction Arabe <=> Français</ion-title>
-        </ion-navbar>
-      </ion-header>
-      
-      
-      <ion-content>
-          <ion-list >
-            <ion-item *ngFor="let ga of goodanswers">
-              <ion-card (click)="showCorrection()">
-              <ion-card-content>
-                {{ga.french}}
-              </ion-card-content>       
-            </ion-card>
-          </ion-item>
-          </ion-list>
-        </ion-content>
-          
+    <ion-title>Correction Français=> Arabe</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!answeropened; else elseBlock">
+    <ion-list>
+      <ion-item *ngFor="let wi of wordsIcon">
+        <ion-card (click)="showCorrection(wi)">
+          <ion-card-content>
+            <ion-icon [name]="wi.answericon" item-end></ion-icon>
+            {{wi.french}}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+  <ng-template #elseBlock>
+
+
+    <ion-card>
+      <ion-card-content>
+        {{wordSearchedClicked.french}}
+      </ion-card-content>
+    </ion-card>
+    <ion-list dir="rtl">
+      <ion-item *ngFor="let word of displayedWordsChoosen">
+        <!--ion-icon [name]="ans" item-end></ion-icon-->
+        <ion-label>{{word.arabic}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <button ion-button color="secondary" round (click)="backToMainCorrectPage()">Retour</button>
+
+  </ng-template>
+</ion-content>

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { CoursesPage } from '../../../pages/courses/courses';
-import { ExercicesCoursesPage } from '../../exercices/exercices-courses/exercices-courses';
 import { CorrectionArabicToFrenchPage } from '../../../pages/corrections/arabic-to-french/correction-arabic-to-french';
+import { Word } from '../../../interfaces/word';
 
 @Component({
   selector: 'results',
@@ -14,13 +11,17 @@ export class ResultsPage {
   note:number;
   appreciation:number;
   commentaire={ar:"",fr:""};
-  goodanswers:any[];
+  exWordsSearched:any[];
   userChoices:any[];
+  displayedWords:Array<Word[]>
+  answers:string[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.note=navParams.get('note');
-    this.goodanswers=navParams.get('goodanswers');
+    this.exWordsSearched=navParams.get('exWordsSearched');
     this.userChoices=navParams.get('userChoices');
+    this.displayedWords=navParams.get('displayedWords')
+    this.answers= navParams.get('answers')
     this.note=(this.note/4)*100
     if(this.note>=0 && this.note<50){
       this.appreciation=1
@@ -51,8 +52,10 @@ export class ResultsPage {
   }
   goToCorrection(){
     this.navCtrl.push(CorrectionArabicToFrenchPage, {
-      goodanswers: this.goodanswers,
-      userschoice: this.userChoices
+      exWordsSearched: this.exWordsSearched,
+      userChoices: this.userChoices,
+      displayedWords:this.displayedWords,
+      answers: this.answers
     });
   }
 }

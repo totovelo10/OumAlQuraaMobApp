@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
           </button>
-    <ion-title>Correction Français/Arabe</ion-title>
+    <ion-title>Correction Arabe/Français</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
         <ion-card (click)="showCorrection(wi)">
           <ion-card-content>
             <ion-icon [name]="wi.answericon" item-end></ion-icon>
-            {{wi.french}}
+            {{wi.arabic}}
           </ion-card-content>
         </ion-card>
       </ion-item>
@@ -27,14 +27,14 @@
 
     <ion-card>
       <ion-card-content class="mycard">
-        {{wordSearchedClicked.french}}
+        {{wordSearchedClicked.arabic}}
       </ion-card-content>
     </ion-card>
     <ion-list dir="rtl">
       <ion-item *ngFor="let word of displayedWordsChoosen">
-        <ion-icon *ngIf="word.arabic==wordSearchedClicked.arabic" name="checkmark-circle-outline" item-end></ion-icon>
-        <ion-icon *ngIf="((word.arabic==userChoiceAnswer)&&(userChoiceAnswer!=wordSearchedClicked.arabic))" name="flash" item-end></ion-icon>
-        <ion-label>{{word.arabic}}</ion-label>
+        <ion-icon *ngIf="word.french==wordSearchedClicked.french" name="checkmark-circle-outline" item-end></ion-icon>
+        <ion-icon *ngIf="((word.french==userChoiceAnswer)&&(userChoiceAnswer!=wordSearchedClicked.french))" name="flash" item-end></ion-icon>
+        <ion-label>{{word.french}}</ion-label>
       </ion-item>
     </ion-list>
     <div class="buttonCenter"><button ion-button color="secondary" round (click)="backToMainCorrectPage()">Retour</button></div>

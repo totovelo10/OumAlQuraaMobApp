@@ -15,11 +15,13 @@ import { CourseDetailsPage } from '../pages/course-details/course-details';
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { ExercicesCoursesPage } from '../pages/exercices/exercices-courses/exercices-courses';
 import { FrenchToArabicPage } from '../pages/exercices/french-to-arabic/french-to-arabic';
+import { ArabicToFrenchPage } from '../pages/exercices/arabic-to-french/arabic-to-french';
 
 // import results page
 import { ResultsPage } from '../pages/exercices/results/results'
 //import correction page
 import { CorrectionFrenchToArabicPage } from '../pages/corrections/french-to-arabic/correction-french-to-arabic';
+import { CorrectionArabicToFrenchPage } from '../pages/corrections/arabic-to-french/correction-arabic-to-french';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
@@ -41,8 +43,10 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     ExercicesPage,
     ExercicesCoursesPage,
     FrenchToArabicPage,
+    ArabicToFrenchPage,
     ResultsPage,
-    CorrectionFrenchToArabicPage
+    CorrectionFrenchToArabicPage,
+    CorrectionArabicToFrenchPage
   ],
   imports: [
     BrowserModule,
@@ -61,8 +65,10 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     ExercicesPage,
     ExercicesCoursesPage,
     FrenchToArabicPage,
+    ArabicToFrenchPage,
     ResultsPage,
-    CorrectionFrenchToArabicPage
+    CorrectionFrenchToArabicPage,
+    CorrectionArabicToFrenchPage
   ],
   providers: [
     StatusBar,

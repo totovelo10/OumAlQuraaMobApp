@@ -35,7 +35,8 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #488aff,
-  secondary:  #32db64,
+  //secondary:  #32db64,
+  secondary:  white,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
@@ -88,3 +89,29 @@ $colors: (
 @import "noto-sans";
 @import url('https://fonts.googleapis.com/css?family=Amiri');
 $font-family-base:'Amiri',sans-serif;
+
+//RadioButton
+//--------------------------------------------------
+//Customization of RadioButtons
+//Color of the checked radio
+$radio-md-color-on: green;
+
+$toolbar-md-title-text-color:white;
+$button-md-secondary:green;
+$toolbar-background:green;
+
+
+//Button
+//--------------------------------------------------
+//Customization of Button
+//Center Button
+
+.buttonCenter{
+  display: flex;
+  justify-content: center;
+}
+
+//Card
+//--------------------------------------------------
+//Customization of Card
+

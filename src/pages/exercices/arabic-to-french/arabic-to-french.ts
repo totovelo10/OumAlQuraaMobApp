@@ -4,12 +4,12 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
 import { Word } from '../../../interfaces/word';
 @Component({
-  selector: 'french-to-arabic',
-  templateUrl: 'french-to-arabic.html',
+  selector: 'arabic-to-french',
+  templateUrl: 'arabic-to-french.html',
   providers: [WordsService]
 })
 
-export class FrenchToArabicPage {
+export class ArabicToFrenchPage {
 
 
   selectedCourse: any;
@@ -55,12 +55,12 @@ export class FrenchToArabicPage {
       tmp_displayed_words = this.getFiveWords(this.maxWords);// here we choose five words of the selected course
       tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
       for (let i = 0; i < this.exWordsSearched.length; i++) {
-        console.log("exwordsearched: " + this.exWordsSearched[i].french)
+        console.log("exwordsearched: " + this.exWordsSearched[i].arabic)
       }
-      console.log("tmp_wordsearched: " + tmp_wordsearched.french)
+      console.log("tmp_wordsearched: " + tmp_wordsearched.arabic)
       // we check if the wordsearched chosen is not in the exwordsearched 
       for (let i = 0; i < this.exWordsSearched.length; i++) {
-        if ((this.exWordsSearched[i].french == tmp_wordsearched.french) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
+        if ((this.exWordsSearched[i].arabic == tmp_wordsearched.arabic) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
           tmp_displayed_words = this.getFiveWords(this.maxWords);
           tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
 
@@ -161,7 +161,7 @@ export class FrenchToArabicPage {
           userChoices: this.userChoices,
           displayedWords: this.exDisplayedWords,
           answers: this.answers,
-          whoami: 'frenchtoarabic'
+          whoami: 'arabictofrench'
         });
 
         console.log("Finiiito!!!")

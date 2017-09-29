@@ -1,6 +1,8 @@
 export interface Word{
     arabic:string;
     french:string;
+    image:string;
+    sound:string;
 }
 
 export interface WordIcon{
@@ -8,3 +10,4 @@ export interface WordIcon{
     french:string;
     answericon:string;
 }
+

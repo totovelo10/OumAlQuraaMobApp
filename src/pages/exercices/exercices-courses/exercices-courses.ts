@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { FrenchToArabicPage } from '../french-to-arabic/french-to-arabic';
 import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
+import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
 @Component({
     selector: 'exercices-courses',
     templateUrl: 'exercices-courses.html'
@@ -13,7 +14,7 @@ import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
     selectedCourse:any;
     hideback:boolean
     constructor(public navCtrl: NavController, public navParams: NavParams) {
-      console.log("********************************test******************")
+      
         // we retrive the selected course from the navigation parameters
         this.selectedCourse = navParams.get('course');
         console.log(this.selectedCourse)
@@ -22,8 +23,8 @@ import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
         // set our app's pages
         this.exercices = [
           { title: 'Du français à l\'arabe', component: FrenchToArabicPage },
-          { title: 'De l\'arabe au français', component: ArabicToFrenchPage}
-          //{ title:'Exercices', component: ExercicesPage }
+          { title: 'De l\'arabe au français', component: ArabicToFrenchPage},
+          { title:'Images', component: ImageToArabicPage }
         ];
       }
 

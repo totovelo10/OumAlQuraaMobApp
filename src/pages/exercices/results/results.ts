@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CorrectionFrenchToArabicPage } from '../../../pages/corrections/french-to-arabic/correction-french-to-arabic';
 import { CorrectionArabicToFrenchPage } from '../../../pages/corrections/arabic-to-french/correction-arabic-to-french';
+import { CorrectionImageToArabicPage } from '../../../pages/corrections/image-to-arabic/correction-image-to-arabic';
 import { FrenchToArabicPage } from '../../../pages/exercices/french-to-arabic/french-to-arabic'
 import { ArabicToFrenchPage } from '../../../pages/exercices/arabic-to-french/arabic-to-french'
 import { Word } from '../../../interfaces/word';
@@ -19,7 +20,9 @@ export class ResultsPage {
   userChoices: any[];
   displayedWords: Array<Word[]>
   answers: string[]
+  wordsearchedImageUrls: string[]
   whichPage: string;
+  component: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.note = navParams.get('note');
     this.selectedCourse = navParams.get('course');
@@ -27,7 +30,13 @@ export class ResultsPage {
     this.userChoices = navParams.get('userChoices');
     this.displayedWords = navParams.get('displayedWords')
     this.answers = navParams.get('answers')
+    this.wordsearchedImageUrls = navParams.get('wordsearchedImageUrls')
     this.whichPage = navParams.get('whoami')
+    switch (this.whichPage) {
+      case "frenchtoarabic": this.component = CorrectionFrenchToArabicPage; break;
+      case "arabictofrench": this.component = CorrectionArabicToFrenchPage; break;
+      case "imagetoarabic": this.component = CorrectionImageToArabicPage; break;
+    }
     this.note = (this.note / 4) * 100
     if (this.note >= 0 && this.note < 50) {
       this.appreciation = 1
@@ -57,33 +66,20 @@ export class ResultsPage {
     this.navCtrl.popToRoot();
   }
   goToCorrection() {
-    if (this.whichPage == 'frenchtoarabic') {
 
-      this.navCtrl.push(CorrectionFrenchToArabicPage, {
-        exWordsSearched: this.exWordsSearched,
-        userChoices: this.userChoices,
-        displayedWords: this.displayedWords,
-        answers: this.answers,
-        course: this.selectedCourse
-      });
-    }
-    else {
-      this.navCtrl.push(CorrectionArabicToFrenchPage, {
-        exWordsSearched: this.exWordsSearched,
-        userChoices: this.userChoices,
-        displayedWords: this.displayedWords,
-        answers: this.answers,
-        course: this.selectedCourse
-      });
-    }
+
+    this.navCtrl.push(this.component, {
+      exWordsSearched: this.exWordsSearched,
+      userChoices: this.userChoices,
+      displayedWords: this.displayedWords,
+      answers: this.answers,
+      course: this.selectedCourse,
+      wordsearchedImageUrls: this.wordsearchedImageUrls
+    });
+
   }
 
-  repeatetExo() {
-    if (this.whichPage == 'frenchtoarabic') {
-      this.navCtrl.push(FrenchToArabicPage, { course: this.selectedCourse });
-    }
-    else {
-      this.navCtrl.push(ArabicToFrenchPage, { course: this.selectedCourse });
-    }
+  repeatExo() {
+    this.navCtrl.push(this.component, { course: this.selectedCourse })
   }
 }

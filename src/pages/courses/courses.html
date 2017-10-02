@@ -7,8 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content padding>
+  <ion-list class="responsive">
     <!--button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"-->
     <button ion-item *ngFor="let course of courses | async" (click)="courseSelected(course)">
       <!--ion-icon name="{{item.icon}}" item-left></ion-icon-->

@@ -5,6 +5,7 @@ import { CorrectionArabicToFrenchPage } from '../../../pages/corrections/arabic-
 import { CorrectionImageToArabicPage } from '../../../pages/corrections/image-to-arabic/correction-image-to-arabic';
 import { FrenchToArabicPage } from '../../../pages/exercices/french-to-arabic/french-to-arabic'
 import { ArabicToFrenchPage } from '../../../pages/exercices/arabic-to-french/arabic-to-french'
+import { ImageToArabicPage } from '../../../pages/exercices/image-to-arabic/image-to-arabic'
 import { Word } from '../../../interfaces/word';
 
 @Component({
@@ -22,7 +23,8 @@ export class ResultsPage {
   answers: string[]
   wordsearchedImageUrls: string[]
   whichPage: string;
-  component: any;
+  correctionPage: any;
+  exoPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.note = navParams.get('note');
     this.selectedCourse = navParams.get('course');
@@ -33,9 +35,9 @@ export class ResultsPage {
     this.wordsearchedImageUrls = navParams.get('wordsearchedImageUrls')
     this.whichPage = navParams.get('whoami')
     switch (this.whichPage) {
-      case "frenchtoarabic": this.component = CorrectionFrenchToArabicPage; break;
-      case "arabictofrench": this.component = CorrectionArabicToFrenchPage; break;
-      case "imagetoarabic": this.component = CorrectionImageToArabicPage; break;
+      case "frenchtoarabic": this.correctionPage = CorrectionFrenchToArabicPage;this.exoPage=FrenchToArabicPage; break;
+      case "arabictofrench": this.correctionPage = CorrectionArabicToFrenchPage;this.exoPage=ArabicToFrenchPage; break;
+      case "imagetoarabic": this.correctionPage = CorrectionImageToArabicPage;this.exoPage=ImageToArabicPage; break;
     }
     this.note = (this.note / 4) * 100
     if (this.note >= 0 && this.note < 50) {
@@ -68,7 +70,7 @@ export class ResultsPage {
   goToCorrection() {
 
 
-    this.navCtrl.push(this.component, {
+    this.navCtrl.push(this.correctionPage, {
       exWordsSearched: this.exWordsSearched,
       userChoices: this.userChoices,
       displayedWords: this.displayedWords,
@@ -80,6 +82,6 @@ export class ResultsPage {
   }
 
   repeatExo() {
-    this.navCtrl.push(this.component, { course: this.selectedCourse })
+    this.navCtrl.push(this.exoPage, { course: this.selectedCourse })
   }
 }

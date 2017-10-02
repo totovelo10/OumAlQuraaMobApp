@@ -31,7 +31,9 @@ export class CorrectionImageToArabicPage {
     this.displayedWords = navParams.get('displayedWords')
     this.answericon = navParams.get('answers')
     this.wordsearchedImageUrls = navParams.get('wordsearchedImageUrls')
+    //this.wordsSearched=[]
     this.answeropened = false;
+    console.log(this.answeropened)
     this.wordSearchedClicked = '';
     this.wordsIcon=[]
     

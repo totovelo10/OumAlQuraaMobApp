@@ -28,11 +28,10 @@
   <ng-template #elseBlock>
 
 
-    <ion-card>
-      <ion-card-content class="mycard">
-        {{wordSearchedClicked.arabic}}
-      </ion-card-content>
-    </ion-card>
+    <div class="buttonCenter">
+      <button ion-button color="secondary" round (click)="playSound(wordSearchedClicked)">Ecouter</button>
+    </div>
+
     <ion-list dir="rtl">
       <ion-item *ngFor="let word of displayedWordsChoosen">
         <ion-icon *ngIf="word.french==wordSearchedClicked.french" name="checkmark-circle-outline" item-end></ion-icon>

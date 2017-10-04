@@ -6,7 +6,9 @@
     <ion-title>Correction Image/Arabe</ion-title>
   </ion-navbar>
 </ion-header>
-
+<ion-title>
+    {{selectedCourse.title}}
+  </ion-title>
 <ion-content padding>
   <div *ngIf="!answeropened; else elseBlock">
     <ion-list>

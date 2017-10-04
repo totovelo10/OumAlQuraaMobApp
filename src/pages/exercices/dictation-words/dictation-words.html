@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title>Dictée</ion-title>
+    <ion-title>
+        {{selectedCourse.title}}
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="buttonCenter" *ngIf="!listened; else elseBlock">
+    <button ion-button color="secondary" round (click)="playSound(wordsearched)">Ecouter</button>
+  </div>
+  <ng-template #elseBlock>
+    <div class="buttonCenter">
+      <button ion-button color="secondary" round (click)="playSound(wordsearched)">Écouter de nouveau</button>
+    </div>
+  </ng-template>
+  <ion-input dir="rtl" type="text" placeholder="اكتب هنا ما سمعت..." [(ngModel)]="dictee"></ion-input>
+  <ion-grid dir="rtl">
+    <ion-row>
+      <ion-col col-28 *ngFor="let harf of letters"><button ion-button color="secondary" (click)="addLetter(harf)">{{harf.arabic}}</button></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="buttonCenter">
+    <button ion-button color="secondary" round (click)="validate()">Valider</button>
+  </div>
+
+</ion-content>

@@ -20,11 +20,13 @@ export class CorrectionFrenchToArabicPage {
   wordSearchedClicked: any
   answericon: string[];
   wordsIcon: WordIcon[];
-
+  selectedCourse:any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
 
     // we retrive the selected course from the navigation parameters
+    this.selectedCourse = navParams.get('selectedCourse');
     this.wordsSearched = navParams.get('exWordsSearched');
     this.userchoices = navParams.get('userChoices');
     this.displayedWords = navParams.get('displayedWords')

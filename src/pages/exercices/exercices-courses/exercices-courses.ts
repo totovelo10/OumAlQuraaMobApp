@@ -4,6 +4,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { FrenchToArabicPage } from '../french-to-arabic/french-to-arabic';
 import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
 import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
+import { SoundWordsToFrenchPage } from '../sound-words-to-french/sound-words-to-french';
+import { DictationWordsPage } from '../dictation-words/dictation-words';
 @Component({
     selector: 'exercices-courses',
     templateUrl: 'exercices-courses.html'
@@ -24,7 +26,9 @@ import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
         this.exercices = [
           { title: 'Du français à l\'arabe', component: FrenchToArabicPage },
           { title: 'De l\'arabe au français', component: ArabicToFrenchPage},
-          { title:'Images', component: ImageToArabicPage }
+          { title:'Images', component: ImageToArabicPage },
+          { title:'Sons', component: SoundWordsToFrenchPage },
+          { title:'Dictée', component:DictationWordsPage }
         ];
       }
 

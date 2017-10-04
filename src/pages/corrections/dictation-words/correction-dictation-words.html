@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
           </button>
-    <ion-title>Correction Arabe/Français</ion-title>
+    <ion-title>Correction Dictée</ion-title>
     <ion-title>
         {{selectedCourse.title}}
       </ion-title>
@@ -28,16 +28,23 @@
   <ng-template #elseBlock>
 
 
-    <ion-card>
-      <ion-card-content class="mycard">
-        {{wordSearchedClicked.arabic}}
-      </ion-card-content>
-    </ion-card>
+    <div class="buttonCenter">
+      <button ion-button color="secondary" round (click)="playSound(wordSearchedClicked)">Ecouter</button>
+    </div>
+
     <ion-list dir="rtl">
-      <ion-item *ngFor="let word of displayedWordsChoosen">
-        <ion-icon *ngIf="word.french==wordSearchedClicked.french" name="checkmark-circle-outline" item-end></ion-icon>
-        <ion-icon *ngIf="((word.french==userChoiceAnswer)&&(userChoiceAnswer!=wordSearchedClicked.french))" name="flash" item-end></ion-icon>
-        <ion-label>{{word.french}}</ion-label>
+      <!--ion-item *ngFor="let word of wordsIcon"-->
+      <ion-item>
+        
+        <ion-label>{{wordSearchedClicked.arabic}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon *ngIf="wordSearchedClicked.arabic==userChoiceAnswer" name="checkmark-circle-outline" item-end></ion-icon>
+        <ion-icon *ngIf="(wordSearchedClicked.arabic!=userChoiceAnswer)" name="flash" item-end></ion-icon>
+        <ion-label>
+          {{userChoiceAnswer}}
+        </ion-label>
       </ion-item>
     </ion-list>
     <div class="buttonCenter"><button ion-button color="secondary" round (click)="backToMainCorrectPage()">Retour</button></div>

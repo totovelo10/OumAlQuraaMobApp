@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 //import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-//import { ListPage } from '../pages/list/list';
+
 import { CoursesPage } from '../pages/courses/courses';
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -32,6 +32,7 @@ export class MyApp {
 
       { title: 'Cours', component: CoursesPage },
       { title: 'Exercices', component: ExercicesPage }
+     
     ];
   }
 

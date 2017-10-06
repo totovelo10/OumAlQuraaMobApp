@@ -1,11 +1,12 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+//import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { FrenchToArabicPage } from '../french-to-arabic/french-to-arabic';
 import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
 import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../sound-words-to-french/sound-words-to-french';
 import { DictationWordsPage } from '../dictation-words/dictation-words';
+
 @Component({
     selector: 'exercices-courses',
     templateUrl: 'exercices-courses.html'
@@ -28,7 +29,8 @@ import { DictationWordsPage } from '../dictation-words/dictation-words';
           { title: 'De l\'arabe au français', component: ArabicToFrenchPage},
           { title:'Images', component: ImageToArabicPage },
           { title:'Sons', component: SoundWordsToFrenchPage },
-          { title:'Dictée', component:DictationWordsPage }
+          { title:'Dictée', component:DictationWordsPage },
+          
         ];
       }
 

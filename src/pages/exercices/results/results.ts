@@ -11,6 +11,7 @@ import { ImageToArabicPage } from '../../../pages/exercices/image-to-arabic/imag
 import { SoundWordsToFrenchPage } from '../../../pages/exercices/sound-words-to-french/sound-words-to-french';
 import { DictationWordsPage } from '../../../pages/exercices/dictation-words/dictation-words';
 import { Word } from '../../../interfaces/word';
+import {nbQuestion} from '../../../constantes'
 
 @Component({
   selector: 'results',
@@ -31,6 +32,7 @@ export class ResultsPage {
   exoPage:any;
   soundWords: string[];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log("****************I am in the stars ***************")
     this.note = navParams.get('note');
     this.selectedCourse = navParams.get('course');
     this.exWordsSearched = navParams.get('exWordsSearched');
@@ -47,7 +49,7 @@ export class ResultsPage {
       case "soundwordstofrench": this.correctionPage = CorrectionSoundWordsToFrenchPage;this.exoPage=SoundWordsToFrenchPage; break;
       case "dictationwords": this.correctionPage = CorrectionDictationWordsPage;this.exoPage=DictationWordsPage; break;
     }
-    this.note = (this.note / 4) * 100
+    this.note = (this.note / nbQuestion) * 100
     if (this.note >= 0 && this.note < 50) {
       this.appreciation = 1
       this.commentaire.ar = '!اجتهد'

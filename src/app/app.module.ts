@@ -6,16 +6,19 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 //import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MyApp } from './app.component';
-
-
+import {ExoParentPage} from '../pages/exercices/exo-parent'
 import { CoursesPage } from '../pages/courses/courses';
 import { DictationWordsPage } from '../pages/exercices/dictation-words/dictation-words';
 import { CourseDetailsPage } from '../pages/course-details/course-details';
+
 // import exercices pages
+
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { ExercicesCoursesPage } from '../pages/exercices/exercices-courses/exercices-courses';
+
 import { FrenchToArabicPage } from '../pages/exercices/french-to-arabic/french-to-arabic';
 import { ArabicToFrenchPage } from '../pages/exercices/arabic-to-french/arabic-to-french';
+
 import { ImageToArabicPage } from '../pages/exercices/image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../pages/exercices/sound-words-to-french/sound-words-to-french';
 
@@ -30,7 +33,7 @@ import { CorrectionDictationWordsPage } from '../pages/corrections/dictation-wor
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
-
+import { DragulaModule } from 'ng2-dragula';
 import 'firebase/database';
 import 'firebase/app';
 import 'firebase/storage'
@@ -40,10 +43,11 @@ import { firebaseConfig } from '../environments/firebaseconfig';
 @NgModule({
   declarations: [
     MyApp,
+    ExercicesPage,
     CoursesPage,
     CourseDetailsPage,
-    ExercicesPage,
     ExercicesCoursesPage,
+    ExoParentPage,
     FrenchToArabicPage,
     ArabicToFrenchPage,
     ImageToArabicPage,
@@ -62,11 +66,13 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    DragulaModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    ExoParentPage,
     CoursesPage,
     CourseDetailsPage,
     ExercicesPage,

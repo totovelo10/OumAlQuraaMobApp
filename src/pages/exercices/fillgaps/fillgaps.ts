@@ -10,7 +10,7 @@ import { Word } from '../../../interfaces/word';
   providers: [WordsService]
 })
 
-export class FrenchToArabicPage  {
+export class FrenchToArabicPage {
 
 
   selectedCourse: any;
@@ -25,7 +25,7 @@ export class FrenchToArabicPage  {
   userChoices: any[]
   exDisplayedWords: Array<Word[]>
   answers: string[]
-  whoami:string
+  whoami: string
 
   constructor(public navCtrl: NavController, public navParams: NavParams, protected wordsService: WordsService) {
     // we retrive the selected course from the navigation parameters
@@ -38,7 +38,7 @@ export class FrenchToArabicPage  {
     this.exDisplayedWords = []
     this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
     //super(navCtrl,navParams,wordsService)
-    this.whoami="frenchtoarabic"
+    this.whoami = "frenchtoarabic"
   }
   //getWords of a Course
   getWords(selectedCourse): void {
@@ -53,13 +53,13 @@ export class FrenchToArabicPage  {
       then we pass the five words and the wordchosen in temporary variables
       for check because if we did not do thath the screen would be 
       refreshed with bad words*/
-      
+
       tmp_displayed_words = this.getFiveWords(this.maxWords);// here we choose five words of the selected course
       tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
       for (let i = 0; i < this.exWordsSearched.length; i++) {
-        console.log("exwordsearched: " + this.exWordsSearched[i].french)
+        //console.log("exwordsearched: " + this.exWordsSearched[i].french)
       }
-      console.log("tmp_wordsearched: " + tmp_wordsearched.french)
+      //console.log("tmp_wordsearched: " + tmp_wordsearched.french)
       // we check if the wordsearched chosen is not in the exwordsearched 
       for (let i = 0; i < this.exWordsSearched.length; i++) {
         if ((this.exWordsSearched[i].french == tmp_wordsearched.french) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
@@ -93,7 +93,7 @@ export class FrenchToArabicPage  {
     maxIndex is the index max of this.course_words
     we check if number includes a nb it seems that the word is choosen yet
     so we avoid the double*/
-    
+
     let tabwords: any[] = [];
     let tabnumbers: number[] = []
     let nb: number;
@@ -166,7 +166,7 @@ export class FrenchToArabicPage  {
           whoami: 'frenchtoarabic'
         });
 
-       // console.log("Finiiito!!!")
+        // console.log("Finiiito!!!")
       }
       else this.ngOnInit()//this.getWords(this.selectedCourse);
 
@@ -175,25 +175,82 @@ export class FrenchToArabicPage  {
 
 
   /*
-  we passed the coursename 'selectedCourse' choosen as parameter-done
-  we retrieve the words of the course 'course_words'-done
- // we retrieve the words of the previous courses
-  we choose randomly five words => 'displayed_words'-done
-  we choose randomly the word to find between the five => 'wordsearched'-done
-  when the user validate
-    we retrieve his choice =>'wordchoosen'-done
-    if his choice equal the word to find then the 'note' increments-done
-      
-    else nothing
-    we incremente the nbproposition -done
-    if 'nbproposition' =X stop here and go to results - done
-        if we want to go to correction
-          we pass list arrays
-          the first is an array with good answers= exwordschoosen
-          the second is an array with displayed words
-    else we refresh the screen
+  we retrive sentences of the chapter from the server
+  in the sentences we have words to search ex: هذا
+  we display 5  sentences one by one
+  the wordsearched is replace by a an input and when we click on the input
+  the user has a choice between words 
+  the user click on the word and the word is diplayed in the input in a specific color
+  the user validate and pass to the other sentence
+  finally the user is redirected to result page
+  then correction page
 
+  sentence={arabic:string, french:string,}
+  exotrou{liste des mots pour le trou, liste des phrases sans trous, listes des phrases avec trous }
+
+  en bdd
+  table fillgaps 
+  fillgaps1{
+    gaps1:true
+    gaps2:true
+    gaps3:true
+    
+  }
+
+
+  table gaps
+ gaps1 {
+    sentecnce_complete: fkfkfkfkf
+    sentence_gapsed: dfkdkfld
+    gaps_word:sds
+    chapter2:true
+  }
+
+
+
+  exGapsSentence:GapSentence
+
+  getGapsSetences(selectedCourse){
+    let tmp_gapsentence: any;
+
+    this.sentencesService.getGapsSentences(selectedCourse).subscribe(sentences => {
+      this.course_gapsentences = sentences;
+      this.maxsentences = sentences.length;
+      let nb: number;
+      nb = this.getRandomNumber(max)
+
+      tmp_gaps_sentence = this.course_gapsentences[nb]
+
+      for (let i = 0; i < this.exGapsSentence.length; i++) {
+        if ((this.exGapsSentence[i].french == tmp_gaps_sentence.french) && (this.exGapsSentence[i].arabic == tmp_gaps_sentence.arabic)) {
+          tmp_gaps_sentence = this.getSentence(this.course_gapsentences)
+          i = -1;// because i++ comes after this line
+        }
+
+      }
+      this.gaps_sentence = tmp_gaps_sentence
+    });
+
+  }
+
+  getRandomNumber(max: number): number {
+    let nb: number
+    nb = Math.floor(Math.random() * max);
+
+    return nb;
+  }
+
+  validate() {
+    this.exDisplayedWords.push(this.displayed_words);
+    this.exWordsSearched.push(this.wordsearched)
+    if (this.wordchoosen == null) {
+
+    }
+
+  
+  
   */
+
 
 
 

@@ -85,8 +85,7 @@ export class DictationWordsPage {
       { id: "55", arabic: "؟" },
       { id: "56", arabic: "!" },
       { id: "57", arabic: " " },
-      { id: "58", arabic: "<=" },
-      { id: "52", arabic: "’" }
+      { id: "58", arabic: "<=" }
     ]
 
     this.dictee = "";
@@ -179,15 +178,15 @@ export class DictationWordsPage {
     let tabnumbers: number[] = []
     let nb: number;
     let maxIndex: number
-    maxIndex = max - 1
+    /*maxIndex = max - 1
     let nbmax = 0;
     if (maxIndex >= 5)
       nbmax = 5
     else nbmax = maxIndex + 1
-    console.log(maxIndex)
-    for (let i = 0; i < nbmax; i++) {
+    console.log(maxIndex)*/
+    for (let i = 0; i < 5; i++) {
 
-      nb = this.getRandomNumber(maxIndex, 0)
+      nb = this.getRandomNumber(max)
       console.log(nb)
       if (tabnumbers.includes(nb)) {
         i--;
@@ -201,9 +200,9 @@ export class DictationWordsPage {
     return tabwords
   }
 
-  getRandomNumber(max: number, min: number): number {
+  getRandomNumber(max: number): number {
     let nb: number
-    nb = Math.floor(Math.random() * max) + min;
+    nb = Math.floor(Math.random() * max);
 
     return nb;
   }
@@ -212,7 +211,7 @@ export class DictationWordsPage {
   getSearchedWord(tab: any[]): any {
     let nbr: number
     let wrd: any
-    nbr = this.getRandomNumber(tab.length - 1, 0) // the tab index is 0 1 2 3 4
+    nbr = this.getRandomNumber(tab.length) // the tab index is 0 1 2 3 4
     wrd = tab[nbr];
 
     return tab[nbr];
@@ -236,7 +235,7 @@ export class DictationWordsPage {
         this.answers.push("flash")
       }
       this.nbproposition++
-      if (this.nbproposition == 4) {
+      if (this.nbproposition == nbQuestion) {
         this.navCtrl.push(ResultsPage, {
           note: this.note,
           course: this.selectedCourse,
@@ -280,3 +279,4 @@ export class DictationWordsPage {
 
 
 }
+export const nbQuestion = 5

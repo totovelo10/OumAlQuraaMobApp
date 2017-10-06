@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { WordsService } from '../../services/words.services'
+import { GapsentencesService } from '../../services/gapsentences.services'
+
 import { NavController, NavParams } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
-import { Word } from '../../../interfaces/word';
+import { Gapsentence} from '../../../interfaces/gapsentence';
 //import {ExoParentPage} from '../exo-parent';
 @Component({
   selector: 'french-to-arabic',
@@ -15,7 +17,7 @@ export class FrenchToArabicPage {
 
   selectedCourse: any;
   course_words: any[];
-  displayed_words: Word[];
+
   wordsearched: any;
   wordchoosen: any;
   note: number;
@@ -23,11 +25,14 @@ export class FrenchToArabicPage {
   maxWords: number;
   exWordsSearched: any[]
   userChoices: any[]
-  exDisplayedWords: Array<Word[]>
+
   answers: string[]
   whoami: string
+  course_gapsentences:Array<Gapsentence>
+  missingWords:Array<String>
+  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, protected wordsService: WordsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, protected gapsentencesServices: GapsentencesService) {
     // we retrive the selected course from the navigation parameters
     this.selectedCourse = navParams.get('course');
     this.wordsearched = {}
@@ -213,8 +218,8 @@ export class FrenchToArabicPage {
   getGapsSetences(selectedCourse){
     let tmp_gapsentence: any;
 
-    this.sentencesService.getGapsSentences(selectedCourse).subscribe(sentences => {
-      this.course_gapsentences = sentences;
+    this.gapsentencesServices.getGapsSentences(selectedCourse).subscribe(gapsentences => {
+      this.course_gapsentences = gapsentences;
       this.maxsentences = sentences.length;
       let nb: number;
       nb = this.getRandomNumber(max)

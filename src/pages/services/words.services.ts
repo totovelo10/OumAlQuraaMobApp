@@ -27,16 +27,5 @@ export class WordsService {
   }
 
 
-  getGapsSentences(course:any): FirebaseListObservable<any[]> {
-    let url='/gapsentences/'
-       // we select the gapsentences that have the course to true in the bdd
-    this.course_gaps_sentences = this.db.list(url,{
-        query:{
-          orderByChild: course.$key,
-          equalTo:true
-        }
-      })
-      return this.course_gaps_sentences;
-  }
-
+  
 }

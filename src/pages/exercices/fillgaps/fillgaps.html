@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
           </button>
-    <ion-title>Français/Arabe</ion-title>
+    <ion-title>Texte à trou</ion-title>
     <ion-title>
         {{selectedCourse.title}}
       </ion-title>
@@ -13,20 +13,15 @@
 
 <ion-content padding>
   
-  <ion-card class="mycard">
-    <ion-card-content>
-      {{wordsearched.french | uppercase}}
-    </ion-card-content>
-  </ion-card>
-  <ion-list radio-group dir="rtl" [(ngModel)]="wordchoosen">
 
-    <ion-item *ngFor="let word of displayed_words">
-      <ion-label>{{word.arabic}}</ion-label>
-      <ion-radio [value]="word"></ion-radio>
-    </ion-item>
-  </ion-list>
+    
+    <ion-select [(ngModel)]="missword1">
+      <ion-option *ngFor="let word of propositionslist" [value]="word">{{word}}</ion-option>
+    
 
-  <div class="buttonCenter">
-    <button ion-button color="secondary" round (click)="validate()">Valider</button>
-  </div>
+    <!--div dir="rtl" [innerHTML]="gaps_sentence.sentencegapsed"></div-->
+    <div class="buttonCenter">
+      <button ion-button color="secondary" round (click)="validate()">Valider</button>
+    </div>
+
 </ion-content>

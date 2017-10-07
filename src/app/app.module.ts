@@ -21,7 +21,7 @@ import { ArabicToFrenchPage } from '../pages/exercices/arabic-to-french/arabic-t
 
 import { ImageToArabicPage } from '../pages/exercices/image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../pages/exercices/sound-words-to-french/sound-words-to-french';
-
+import { FillGapsPage } from '../pages/exercices/fillgaps/fillgaps';
 // import results page
 import { ResultsPage } from '../pages/exercices/results/results'
 //import correction page
@@ -53,6 +53,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     ImageToArabicPage,
     SoundWordsToFrenchPage,
     DictationWordsPage,
+    FillGapsPage,
     ResultsPage,
     CorrectionFrenchToArabicPage,
     CorrectionArabicToFrenchPage,
@@ -82,6 +83,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     ImageToArabicPage,
     SoundWordsToFrenchPage,
     DictationWordsPage,
+    FillGapsPage,
     ResultsPage,
     CorrectionFrenchToArabicPage,
     CorrectionArabicToFrenchPage,

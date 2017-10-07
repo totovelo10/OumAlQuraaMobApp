@@ -21,6 +21,7 @@ getGapSentences(course:any): FirebaseListObservable<any[]> {
           equalTo:true
         }
       })
+      console.log(this.course_gaps_sentences)
       return this.course_gaps_sentences;
   }
 }

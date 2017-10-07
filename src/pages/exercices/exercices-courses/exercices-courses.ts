@@ -6,6 +6,7 @@ import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
 import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../sound-words-to-french/sound-words-to-french';
 import { DictationWordsPage } from '../dictation-words/dictation-words';
+import { FillGapsPage } from '../fillgaps/fillgaps';
 
 @Component({
     selector: 'exercices-courses',
@@ -30,6 +31,7 @@ import { DictationWordsPage } from '../dictation-words/dictation-words';
           { title:'Images', component: ImageToArabicPage },
           { title:'Sons', component: SoundWordsToFrenchPage },
           { title:'Dictée', component:DictationWordsPage },
+          { title:'Texte à trous', component:FillGapsPage }
           
         ];
       }

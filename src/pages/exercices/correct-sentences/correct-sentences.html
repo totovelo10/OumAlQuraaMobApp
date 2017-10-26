@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title>Choisir la bonne phrase</ion-title>
+    <ion-title>
+        {{selectedCourse.title}}
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div>{{consigne.arabic}}</div>
+  <div>{{consigne.french}}</div>
+  <ion-card class="mycard">
+    <ion-card-content>
+      {{false1.arabic | uppercase}}
+    </ion-card-content>
+  </ion-card>
+  <ion-list radio-group dir="rtl" [(ngModel)]="sentenceChoosen">
+
+    <ion-item *ngFor="let sentence of displayed_sentences">
+      <ion-label>{{sentence.arabic}}</ion-label>
+      <ion-radio [value]="sentence"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <div class="buttonCenter">
+    <button ion-button color="secondary" round (click)="validate()">Valider</button>
+  </div>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title>Correction Phrase correcte</ion-title>
+    <ion-title>
+        {{selectedCourse.title}}
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="consigne">
+    {{consigne.arabic}}
+  </div>
+  <div class="consigne">
+      {{consigne.french}}
+    </div>
+  <div *ngIf="!answeropened; else elseBlock">
+    <ion-list>
+      <ion-item *ngFor="let wi of sentencesIcon">
+        <ion-card (click)="showCorrection(wi)">
+          <ion-card-content>
+            <ion-icon [name]="wi.answericon" item-end></ion-icon>
+            {{wi.arabic}}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+  <ng-template #elseBlock>
+
+
+    <ion-card>
+      <ion-card-content class="mycard">
+        {{sentenceSearchedClicked.arabic}}
+      </ion-card-content>
+    </ion-card>
+    <ion-list dir="rtl">
+      <ion-item *ngFor="let sentence of displayedSentencesChoosen">
+        <ion-icon *ngIf="sentence.arabic==sentenceSearched" name="checkmark-circle-outline" item-end></ion-icon>
+        <ion-icon *ngIf="((sentence.arabic==userChoiceAnswer)&&(userChoiceAnswer!=sentenceSearched))" name="flash" item-end></ion-icon>
+        <ion-label>{{sentence.arabic}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <div class="buttonCenter"><button ion-button color="secondary" round (click)="backToMainCorrectPage()">Retour</button></div>
+
+  </ng-template>
+</ion-content>

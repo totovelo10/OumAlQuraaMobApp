@@ -1,0 +1,10 @@
+OumAlQuraaMobApp@0.0.1 C:\Users\boinas\OumAlQuraaMobApp
++-- UNMET PEER DEPENDENCY @ionic-native/core@4.2.0
++-- @ionic/app-scripts@2.1.4
+| `-- node-sass@4.5.3
+|   `-- request@2.81.0
+|     `-- har-validator@4.2.1
+|       `-- ajv@4.11.8 
++-- ajv@5.2.3 
+`-- UNMET PEER DEPENDENCY firebase@4.5.2 extraneous
+

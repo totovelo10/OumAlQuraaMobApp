@@ -1,12 +1,14 @@
 import { Component,Inject,ViewChild } from '@angular/core';
 import { Content } from 'ionic-angular';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { WordsService } from '../../services/words.services'
 import { Word } from '../../../interfaces/word';
 import { ResultsPage } from '../results/results';
 import { FirebaseApp } from 'angularfire2';
-import 'firebase/storage'
+import { File } from '@ionic-native/file';
+import { Media, MediaObject } from '@ionic-native/media';
+import * as firebase from 'firebase';
 @Component({
   selector: 'dictation-words',
   templateUrl: 'dictation-words.html',
@@ -30,7 +32,13 @@ export class DictationWordsPage {
   maxWords: number;
   displayed_words: Word[];
   userChoices: any[]
-  constructor(public navCtrl: NavController, private wordsService: WordsService,public navParams: NavParams, @Inject(FirebaseApp) firebaseApp: any, private nativeAudio: NativeAudio) {
+  constructor(public navCtrl: NavController, 
+    private wordsService: WordsService,
+    public navParams: NavParams, 
+    private nativeAudio: NativeAudio,
+    private file: File,
+    public platform: Platform,
+    private media: Media) {
 
     this.letters = [
       { id: "19", arabic: "ا" },
@@ -95,7 +103,7 @@ export class DictationWordsPage {
     this.exWordsSearched = [];// this tab has the words that were chosen before
     this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
     this.soundWords = [];
-    this.firebaseApp=firebaseApp;
+    
     this.listened=false;
     this.note = 0;
     this.nbproposition = 0
@@ -125,15 +133,17 @@ export class DictationWordsPage {
     let tmp_displayed_words: any[];
     let tmp_wordsearched: any;
     // we retrive words of the selected course
-    this.wordsService.getWords(selectedCourse).subscribe(words => {
+    this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
       this.course_words = words;
       this.maxWords = words.length;
 
       //we retrive the sounds of all words of the course
-      this.course_words.forEach(element => {
-      let storageRef = this.firebaseApp.storage().ref().child(element.sound);
-      storageRef.getDownloadURL().then(url => this.soundWords.push(url))
-      })
+      for(let i=0; i <this.course_words.length;i++){
+        let storageRef = firebase.storage().ref().child(this.course_words[i].sound);
+        // set all urls sound in a array
+        storageRef.getDownloadURL().then(url => this.soundWords.push(url))
+        
+      }
       /*
       we want to check if the future wordchoosen was chosen yet
       then we pass the five words and the wordchosen in temporary variables
@@ -237,6 +247,7 @@ export class DictationWordsPage {
       this.nbproposition++
       if (this.nbproposition == nbQuestion) {
         this.navCtrl.push(ResultsPage, {
+          course_words:this.course_words,
           note: this.note,
           course: this.selectedCourse,
           exWordsSearched: this.exWordsSearched,
@@ -256,20 +267,17 @@ export class DictationWordsPage {
 
 
   playSound(word){
-    console.log(word)
-    for (let i = 0; i < this.soundWords.length; i++) {
-
-      let course = this.selectedCourse.$key + "/"
+    for (let i = 0; i < this.course_words.length; i++) {
+      console.log(this.course_words[i])
+      let course = this.selectedCourse.id + "/"
       let sound = word.sound.replace(course, "")
-      if (this.soundWords[i].includes(sound)) {
+      if (this.course_words[i].sound.includes(sound)) {
+        this.platform.ready().then(() => {
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title+'/'+sound
+         let file: MediaObject = this.media.create(filepath)
+         file.play()
+        })
 
-        this.nativeAudio.preloadSimple('uniqueId1', this.soundWords[i]).then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
-        this.nativeAudio.play('uniqueId1').then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
-      }
       this.listened=true;
     }
   }
@@ -277,6 +285,7 @@ export class DictationWordsPage {
 
 
 
+}
 
 }
 export const nbQuestion = 5

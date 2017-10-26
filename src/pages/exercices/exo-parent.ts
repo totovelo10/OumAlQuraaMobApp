@@ -1,38 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { WordsService } from '../services/words.services'
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ResultsPage } from '../exercices/results/results';
 import { Word } from '../../interfaces/word';
-//import {nbQuestion} from '../../constantes';
-/*
-  we passed the coursename 'selectedCourse' choosen as parameter-done
-  we retrieve the words of the course 'course_words'-done
- // we retrieve the words of the previous courses
-  we choose randomly five words => 'displayed_words'-done
-  we choose randomly the word to find between the five => 'wordsearched'-done
-  when the user validate
-    we retrieve his choice =>'wordchoosen'-done
-    if his choice equal the word to find then the 'note' increments-done
-      
-    else nothing
-    we incremente the nbproposition -done
-    if 'nbproposition' =X stop here and go to results - done
-        if we want to go to correction
-          we pass list arrays
-          the first is an array with good answers= exwordschoosen
-          the second is an array with displayed words
-    else we refresh the screen
+import { FirebaseApp } from 'angularfire2';
+import 'firebase/storage'
 
-  */
 @Component({
     selector: 'exo-parent',
     template: 'wait...',
-    providers: [WordsService]
+   // providers: [WordsService]
 })
 
 export class ExoParentPage {
-
-
+    firebaseApp: FirebaseApp
+    nbQuestion:number
     selectedCourse: any;
     course_words: any[];
     displayed_words: Word[];
@@ -45,11 +27,19 @@ export class ExoParentPage {
     userChoices: any[]
     exDisplayedWords: Array<Word[]>
     answers: string[]
+    wordsearchedImageUrls: string[]
+    wordsearchedImageUrl: string
+    storageRef: any
     whoami: string;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, protected wordsService: WordsService) {
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        protected wordsService: WordsService,
+        public loading: LoadingController,
+        @Inject(FirebaseApp) firebaseApp: any) {
 
-
+        this.nbQuestion = 5
         // we retrive the selected course from the navigation parameters and the 
         this.selectedCourse = navParams.get('course');
         this.wordsearched = {}// the wordsearched
@@ -59,16 +49,39 @@ export class ExoParentPage {
         this.userChoices = [];
         this.exDisplayedWords = [] // this tab has the words that were displayed in a specific question
         this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
-
+        this.wordsearchedImageUrls = []
+        this.wordsearchedImageUrl = ""
+        this.storageRef = firebaseApp.storage().ref()
     }
+    /*constructor(public $injector){
+        $injector.get('NavController');
+        $injector.get('NavParams');
+        $injector.get('WordsService');
+        $injector.get('LoadingController');
+        $injector.get('FirebaseApp');
+        this.nbQuestion = 5
+        // we retrive the selected course from the navigation parameters and the 
+        this.selectedCourse = this.navParams.get('course');
+        this.wordsearched = {}// the wordsearched
+        this.note = 0;
+        this.nbproposition = 0 // number of questions in the exo
+        this.exWordsSearched = [];// this tab has the words that were chosen before
+        this.userChoices = [];
+        this.exDisplayedWords = [] // this tab has the words that were displayed in a specific question
+        this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
+        this.wordsearchedImageUrls = []
+        this.wordsearchedImageUrl = ""
+        this.storageRef = this.firebaseApp.storage().ref()
+    }*/
     //getWords of a Course
     getWords(selectedCourse): void {
         let tmp_displayed_words: any[];
         let tmp_wordsearched: any;
         // we retrive word of the selected course
-        this.wordsService.getWords(selectedCourse).subscribe(words => {
+        this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
             this.course_words = words;
             this.maxWords = words.length;
+            
             /*
             we want to check if the future wordchoosen was chosen yet
             then we pass the five words(five proposition in the question) and the wordchosen in temporary variables
@@ -95,6 +108,8 @@ export class ExoParentPage {
             // when we exit the loop we have our really proposition to display and the wordsearched
             this.displayed_words = tmp_displayed_words
             this.wordsearched = tmp_wordsearched
+            let storageRefImage = this.storageRef.child(this.wordsearched.image);
+            storageRefImage.getDownloadURL().then(url => this.wordsearchedImageUrl = url)
         });
 
     }
@@ -103,9 +118,21 @@ export class ExoParentPage {
 
     ngOnInit(): void {
         this.getWords(this.selectedCourse);
-        //console.log("wodch " + this.wordchoosen)
+       // this.ionViewLoaded()
+        console.log("wodch " + this.wordchoosen)
 
     }
+
+   /* ionViewLoaded() {
+        let loader = this.loading.create({
+            content: 'Getting latest entries...',
+        });
+
+        //loader.present().then(() => {
+            this.getWords(this.selectedCourse);
+         //   loader.dismiss();
+       // });
+}*/
     getFiveWords(max): any[] {
         /*
         we want to retrieve randomly five words from the words of the course
@@ -122,7 +149,7 @@ export class ExoParentPage {
         let nb: number;
         //let maxIndex: number
         //maxIndex = max - 1
-     //   let nbmax = 0;
+        //   let nbmax = 0;
         /*if (maxIndex >= 5)
           nbmax = 5
         else nbmax = maxIndex + 1
@@ -163,7 +190,7 @@ export class ExoParentPage {
     }
 
     validate() {
-       
+
         if (this.wordchoosen == null) {
             // if the user click validate without chose a word nothing is happening
             //TODO add a toast with message "choose a word"
@@ -171,13 +198,14 @@ export class ExoParentPage {
         }
 
         else {
-            
+
             // if the user click on a word and validate we add the wordchoosen in the userchoices array
             this.userChoices.push(this.wordchoosen)
             this.exDisplayedWords.push(this.displayed_words);// we add the displayed proposition in ex in order to know
             // when we correct the exo what propositions were proposed to the user
             this.exWordsSearched.push(this.wordsearched)// we add wordsearched in ex in order to don't have the same wordsearched
-           // console.log(this.wordchoosen)
+            // console.log(this.wordchoosen)
+            this.wordsearchedImageUrls.push(this.wordsearchedImageUrl)
             if (this.wordchoosen == this.wordsearched) {
                 this.note++// the note increase if the user make the goode choice
                 this.answers.push("checkmark-circle-outline") // the userchoice will be displayed with the correct icon
@@ -186,7 +214,7 @@ export class ExoParentPage {
                 this.answers.push("flash")// the userchoice will be displayed with the error icon
             }
             this.nbproposition++ // the number of the question increased
-            if (this.nbproposition == nbQuestion) {
+            if (this.nbproposition == this.nbQuestion) {
                 // if we reach the  number of nbQuestion we exit
                 // giving all these parameters to result page
                 this.navCtrl.push(ResultsPage, {
@@ -195,6 +223,7 @@ export class ExoParentPage {
                     exWordsSearched: this.exWordsSearched,
                     userChoices: this.userChoices,
                     displayedWords: this.exDisplayedWords,
+                    wordsearchedImageUrls: this.wordsearchedImageUrls,
                     answers: this.answers,
                     whoami: this.whoami
                 });
@@ -202,6 +231,7 @@ export class ExoParentPage {
 
             }
             else this.ngOnInit() // while the number of the question did not reached nbQuestion
+            //else this.ionViewLoaded()
             // we continue the exo
 
         }
@@ -215,4 +245,6 @@ export class ExoParentPage {
     }
 
 }
-export const nbQuestion = 5
+
+
+

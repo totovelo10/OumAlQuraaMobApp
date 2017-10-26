@@ -5,23 +5,55 @@
           </button>
     <ion-title>Texte à trou</ion-title>
     <ion-title>
-        {{selectedCourse.title}}
-      </ion-title>
+      {{selectedCourse.title}}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  
+
+  <div dir="rtl" class="fillgaps">
+     
+    <!-- <ion-input *ngIf="missword0" [(ngModel)]="missword0" (click)="popup('missword0')"></ion-input>       -->
+    <span *ngIf="missword0" (click)="popup('missword0')">{{missword0}}</span>
+    <span *ngIf="p0">{{p0}}</span>
 
     
-    <ion-select [(ngModel)]="missword1">
-      <ion-option *ngFor="let word of propositionslist" [value]="word">{{word}}</ion-option>
+    <span *ngIf="missword1" (click)="popup('missword1')">{{missword1}}</span>
+    <span *ngIf="p1">{{p1}}</span>
     
+    <span *ngIf="missword2" (click)="popup('missword2')">{{missword2}}</span>
+    <span *ngIf="p2">{{p2}}</span>
 
-    <!--div dir="rtl" [innerHTML]="gaps_sentence.sentencegapsed"></div-->
-    <div class="buttonCenter">
-      <button ion-button color="secondary" round (click)="validate()">Valider</button>
-    </div>
+    
+    <span *ngIf="missword3" (click)="popup('missword3')">{{missword3}}</span>             
+    <span *ngIf="p3">{{p3}}</span>
+
+
+    <!--span *ngIf="missword2">
+    <ion-select [(ngModel)]="missword2" interface="popover">
+      <ion-option *ngFor="let word2 of propositionslist" [value]="word2">{{word2}}</ion-option>
+    </ion-select>
+    </span>
+    <span *ngIf="p2">
+      {{p2}}
+    </span>
+
+    <span *ngIf="missword3">
+    <ion-select [(ngModel)]="missword3" interface="popover">
+      <ion-option *ngFor="let word3 of propositionslist" [value]="word3">{{word3}}</ion-option>
+    </ion-select>
+    </span>
+    <span *ngIf="p3">
+      {{p3}}
+    </span-->
+  </div>
+
+  <!--div dir="rtl" [innerHTML]="gaps_sentence.sentencegapsed"></div-->
+  <!--div dir="rtl" [innerHTML]="tata"></div-->
+  <div class="buttonCenter">
+    <button ion-button color="secondary" round (click)="validate()">Valider</button>
+  </div>
 
 </ion-content>

@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
+import {ExoParentPage} from '../exo-parent';
+import { NavController, NavParams,LoadingController } from 'ionic-angular';
 import { WordsService } from '../../services/words.services'
-import { NavController, NavParams } from 'ionic-angular';
-import {ExoParentPage} from '../exo-parent'
-
-
+import { FirebaseApp } from 'angularfire2';
+import 'firebase/storage'
 @Component({
   selector: 'arabic-to-french',
   templateUrl: 'arabic-to-french.html',
   providers: [WordsService]
 })
 
-export class ArabicToFrenchPage extends ExoParentPage {
+
+
+
+export class ArabicToFrenchPage  extends ExoParentPage{
 
 
   /*selectedCourse: any;
@@ -26,9 +29,14 @@ export class ArabicToFrenchPage extends ExoParentPage {
   exDisplayedWords: Array<Word[]>
   answers: string[]*/
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, protected wordsService: WordsService) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    protected wordsService: WordsService,
+    public loading: LoadingController,
+    @Inject(FirebaseApp) firebaseApp: any) {
 
-    super(navCtrl,navParams,wordsService)
-    this.whoami="arabictofrench"
-  } 
+    super(navCtrl, navParams, wordsService, loading, firebaseApp)
+    this.whoami = "arabictofrench"
+
+  }
 }

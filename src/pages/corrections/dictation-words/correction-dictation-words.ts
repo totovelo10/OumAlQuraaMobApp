@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,Platform } from 'ionic-angular';
 import { Word } from '../../../interfaces/word';
 import { WordIcon } from '../../../interfaces/word';
 import { NativeAudio } from '@ionic-native/native-audio';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 @Component({
   selector: 'correction-dictation-words',
   templateUrl: 'correction-dictation-words.html',
@@ -11,7 +13,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 
 export class CorrectionDictationWordsPage {
 
-
+  course_words: any[];
   wordsSearched: any[];
   userchoices: any[];
   displayedWords: Array<Word[]>
@@ -24,9 +26,14 @@ export class CorrectionDictationWordsPage {
   soundWords: string[];
   selectedCourse:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private nativeAudio: NativeAudio) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private nativeAudio: NativeAudio,
+    private file: File,
+    public platform: Platform,
+    private media: Media) {
 
-
+    this.course_words = navParams.get('course_words')
     this.selectedCourse = navParams.get('selectedCourse');
     this.wordsSearched = navParams.get('exWordsSearched');
     this.userchoices = navParams.get('userChoices');
@@ -64,31 +71,21 @@ export class CorrectionDictationWordsPage {
 
     }
 
-    /* console.log("wordSearchedClicked: "+ this.wordSearchedClicked);
-     console.log("displayed words for this wordsearched: "+ this.displayedWordsChoosen);
-     console.log("user choice for this wordsearched: "+ this.userChoiceAnswer);
-     console.log("the good answer: "+ wordSearchedClicked.french);
     
-     console.log(this.wordsSearched)
-     console.log("les choix de l'utilisateur "+ this.userchoices )
-     console.log("les mots affichés " + this.displayedWords)*/
-     
   }
-  playSound(word){
-    for (let i = 0; i < this.soundWords.length; i++) {
-
-      let course = this.selectedCourse.$key + "/"
+  playSound(word) {
+    for (let i = 0; i < this.course_words.length; i++) {
+      console.log(this.course_words[i])
+      let course = this.selectedCourse.id + "/"
       let sound = word.sound.replace(course, "")
-      if (this.soundWords[i].includes(sound)) {
-
-        this.nativeAudio.preloadSimple('uniqueId1', this.soundWords[i]).then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
-        this.nativeAudio.play('uniqueId1').then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
+      if (this.course_words[i].sound.includes(sound)) {
+        this.platform.ready().then(() => {
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title + '/' + sound
+          let file: MediaObject = this.media.create(filepath)
+          file.play()
+        }
+        )
       }
-  
     }
   }
 

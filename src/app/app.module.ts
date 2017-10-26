@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -21,7 +22,8 @@ import { ArabicToFrenchPage } from '../pages/exercices/arabic-to-french/arabic-t
 
 import { ImageToArabicPage } from '../pages/exercices/image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../pages/exercices/sound-words-to-french/sound-words-to-french';
-import { FillGapsPage } from '../pages/exercices/fillgaps/fillgaps';
+//import { FillGapsPage } from '../pages/exercices/fillgaps/fillgaps';
+import { CorrectSentencesPage } from '../pages/exercices/correct-sentences/correct-sentences';
 // import results page
 import { ResultsPage } from '../pages/exercices/results/results'
 //import correction page
@@ -30,72 +32,77 @@ import { CorrectionArabicToFrenchPage } from '../pages/corrections/arabic-to-fre
 import { CorrectionImageToArabicPage } from '../pages/corrections/image-to-arabic/correction-image-to-arabic';
 import { CorrectionSoundWordsToFrenchPage } from '../pages/corrections/sound-words-to-french/correction-sound-words-to-french';
 import { CorrectionDictationWordsPage } from '../pages/corrections/dictation-words/correction-dictation-words';
+import { CorrectionCorrectSentencesPage } from '../pages/corrections/correct-sentences/correction-correct-sentences';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
-import { DragulaModule } from 'ng2-dragula';
+import { Media} from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 import 'firebase/database';
 import 'firebase/app';
 import 'firebase/storage'
-
 import { firebaseConfig } from '../environments/firebaseconfig';
 
 @NgModule({
   declarations: [
     MyApp,
-    ExercicesPage,
-    CoursesPage,
-    CourseDetailsPage,
-    ExercicesCoursesPage,
     ExoParentPage,
-    FrenchToArabicPage,
+    ExercicesCoursesPage,
     ArabicToFrenchPage,
+    FrenchToArabicPage,
     ImageToArabicPage,
     SoundWordsToFrenchPage,
+    CoursesPage,
+    CourseDetailsPage,
+    ExercicesPage,
     DictationWordsPage,
-    FillGapsPage,
+    CorrectSentencesPage,
     ResultsPage,
     CorrectionFrenchToArabicPage,
     CorrectionArabicToFrenchPage,
     CorrectionImageToArabicPage,
     CorrectionSoundWordsToFrenchPage,
-    CorrectionDictationWordsPage
+    CorrectionDictationWordsPage,
+    CorrectionCorrectSentencesPage
     
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFireDatabaseModule,
-    DragulaModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     ExoParentPage,
+    ExercicesCoursesPage,
+    ArabicToFrenchPage,
+    FrenchToArabicPage,
+    ImageToArabicPage,
+    SoundWordsToFrenchPage,
     CoursesPage,
     CourseDetailsPage,
     ExercicesPage,
-    ExercicesCoursesPage,
-    FrenchToArabicPage,
-    ArabicToFrenchPage,
-    ImageToArabicPage,
-    SoundWordsToFrenchPage,
     DictationWordsPage,
-    FillGapsPage,
+    CorrectSentencesPage,
     ResultsPage,
     CorrectionFrenchToArabicPage,
     CorrectionArabicToFrenchPage,
     CorrectionImageToArabicPage,
     CorrectionSoundWordsToFrenchPage,
-    CorrectionDictationWordsPage
+    CorrectionDictationWordsPage,
+    CorrectionCorrectSentencesPage
     
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NativeAudio,
+    Media, 
+    File,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

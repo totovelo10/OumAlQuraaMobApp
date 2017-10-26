@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="amiri">
+<ion-content class="amiri" overflow-scroll="true">
   <ion-card>
       <ion-card-header dir="rtl" class="titleCard">
           النص
@@ -18,7 +18,7 @@
           الكلمات الجديدة
       </ion-card-header>
   <ion-list dir="rtl">
-    <button ion-item  *ngFor="let word of course_words | async" (click)="play(word)">
+    <button ion-item  *ngFor="let word of course_words" (click)="play(word)">
     <ion-icon name="volume-up" item-end class= "iconic"></ion-icon>
     {{word.arabic}} : {{word.french}}
     </button>

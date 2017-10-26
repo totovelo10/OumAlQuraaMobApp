@@ -88,8 +88,8 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 @import url('https://fonts.googleapis.com/css?family=Amiri');
-$font-family-base:'Amiri',sans-serif;
-
+//$font-family-base:'Amiri',sans-serif;
+$font-family-base:arial, sans-serif;
 //RadioButton
 //--------------------------------------------------
 //Customization of RadioButtons

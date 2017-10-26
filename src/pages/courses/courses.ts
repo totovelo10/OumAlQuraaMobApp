@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase,AngularFireList} from 'angularfire2/database';
 import { CourseDetailsPage } from '../course-details/course-details';
-
+import { Observable } from 'rxjs/Observable';
+import { Word } from '../../interfaces/word';
+import * as firebase from 'firebase';
 @Component({
   selector: 'courses',
   templateUrl: 'courses.html'
 })
 export class CoursesPage {
-  courses: FirebaseListObservable<any[]>;
+  courses: any[];
   
   constructor(public navCtrl: NavController, public navParams: NavParams,db: AngularFireDatabase) {
-    this.courses = db.list('/courses');
-    console.log(this.courses)
+    db.list('/courses').valueChanges().subscribe(cours => 
+      {
+        console.log(cours)
+        this.courses=cours
+      })
+    
   }
 
   courseSelected(course: String){

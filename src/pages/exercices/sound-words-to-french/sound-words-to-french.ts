@@ -1,20 +1,18 @@
-import { Component,Inject } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { FirebaseApp } from 'angularfire2';
+import { Component, Inject } from '@angular/core';
 import { WordsService } from '../../services/words.services'
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
 import { Word } from '../../../interfaces/word';
+import { FirebaseApp } from 'angularfire2';
 import { NativeAudio } from '@ionic-native/native-audio';
-//import { File } from '@ionic-native/file'
-import 'firebase/storage'
-
+import { File } from '@ionic-native/file';
+import { Media, MediaObject } from '@ionic-native/media';
+import * as firebase from 'firebase';
 @Component({
   selector: 'sound-words-to-french',
   templateUrl: 'sound-words-to-french.html',
   providers: [WordsService],
 })
-
 export class SoundWordsToFrenchPage {
 
 
@@ -30,12 +28,19 @@ export class SoundWordsToFrenchPage {
   userChoices: any[]
   exDisplayedWords: Array<Word[]>
   answers: string[]
-  soundWords: string[];
-  firebaseApp:any
-  listened:boolean;
-  whoami:string
+  firebaseApp: any
+  listened: boolean;
+  soundUrl: any[]
+  whoami: string
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private wordsService: WordsService, db: AngularFireDatabase, @Inject(FirebaseApp) firebaseApp: any, private nativeAudio: NativeAudio) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private wordsService: WordsService,
+    //@Inject(FirebaseApp) firebaseApp: any,
+    private nativeAudio: NativeAudio,
+    private file: File,
+    public platform: Platform,
+    private media: Media) {
 
 
     // we retrive the selected course from the navigation parameters
@@ -47,25 +52,33 @@ export class SoundWordsToFrenchPage {
     this.userChoices = [];
     this.exDisplayedWords = []
     this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
-    this.soundWords = [];
-    this.firebaseApp=firebaseApp;
-    this.listened=false;
-    this.whoami='soundwordstofrench'
+   // this.firebaseApp = firebaseApp;
+    this.listened = false;
+    this.soundUrl = []
+    this.whoami = 'soundwordstofrench'
+    
   }
+
+
   //getWords of a Course
   getWords(selectedCourse): void {
     let tmp_displayed_words: any[];
     let tmp_wordsearched: any;
     // we retrive words of the selected course
-    this.wordsService.getWords(selectedCourse).subscribe(words => {
+    this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
       this.course_words = words;
       this.maxWords = words.length;
 
-      //we retrive the sounds of all words
-      this.course_words.forEach(element => {
-      let storageRef = this.firebaseApp.storage().ref().child(element.sound);
-      storageRef.getDownloadURL().then(url => this.soundWords.push(url))
-      })
+      /*we retrive the sounds of all words
+      for (let i = 0; i < this.course_words.length; i++) {
+        console.log((this.course_words[i].sound))
+        let storageRef = firebase.storage().ref().child(this.course_words[i].sound);
+        // set all urls sound in a array
+        storageRef.getDownloadURL().then(url => this.createSoundFile(this.soundUrl.push(url),i))
+      }*/
+
+
+      //this.soundWords.push(url)
       /*
       we want to check if the future wordchoosen was chosen yet
       then we pass the five words and the wordchosen in temporary variables
@@ -87,10 +100,11 @@ export class SoundWordsToFrenchPage {
           i = -1;// because i++ comes after this line
         }
 
+
       }
       this.displayed_words = tmp_displayed_words
       this.wordsearched = tmp_wordsearched
-      
+
     });
 
   }
@@ -99,7 +113,7 @@ export class SoundWordsToFrenchPage {
 
   ngOnInit(): void {
     this.getWords(this.selectedCourse);
-    this.listened=false;
+    this.listened = false;
     console.log("wodch " + this.wordchoosen)
 
   }
@@ -118,12 +132,12 @@ export class SoundWordsToFrenchPage {
     let tabnumbers: number[] = []
     let nb: number;
     let maxIndex: number
-   /* maxIndex = max - 1
-    let nbmax = 0;
-    if (maxIndex >= 5)
-      nbmax = 5
-    else nbmax = maxIndex + 1
-    console.log(maxIndex)*/
+    /* maxIndex = max - 1
+     let nbmax = 0;
+     if (maxIndex >= 5)
+       nbmax = 5
+     else nbmax = maxIndex + 1
+     console.log(maxIndex)*/
     for (let i = 0; i < 5; i++) {
 
       nb = this.getRandomNumber(max)
@@ -182,9 +196,9 @@ export class SoundWordsToFrenchPage {
           exWordsSearched: this.exWordsSearched,
           userChoices: this.userChoices,
           displayedWords: this.exDisplayedWords,
+          course_words:this.course_words,
           answers: this.answers,
-          soundWords:this.soundWords,
-          whoami:  this.whoami
+          whoami: this.whoami
         });
 
         console.log("Finiiito!!!")
@@ -194,22 +208,30 @@ export class SoundWordsToFrenchPage {
     }
   }
 
-  playSound(word){
-    for (let i = 0; i < this.soundWords.length; i++) {
-
-      let course = this.selectedCourse.$key + "/"
+  playSound(word) {
+    for (let i = 0; i < this.course_words.length; i++) {
+      console.log(this.course_words[i])
+      let course = this.selectedCourse.id + "/"
       let sound = word.sound.replace(course, "")
-      if (this.soundWords[i].includes(sound)) {
-
-        this.nativeAudio.preloadSimple('uniqueId1', this.soundWords[i]).then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
-        this.nativeAudio.play('uniqueId1').then(
-          () => { console.log("success") },
-          () => { console.log("Error") });
+      if (this.course_words[i].sound.includes(sound)) {
+        this.platform.ready().then(() => {
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title+'/'+sound
+         let file: MediaObject = this.media.create(filepath)
+         file.play()
+          
+        })
+        this.listened = true;
       }
-      this.listened=true;
     }
+  }
+
+
+  checkfiles():boolean{
+    let checked:boolean
+  //check if course directory exists
+  // check if sounds courses files exists
+  // if there do not , we build them with a load screen
+    return checked
   }
   
 
@@ -235,7 +257,16 @@ export class SoundWordsToFrenchPage {
 
   */
 
+  /*constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    protected wordsService: WordsService,
+    public loading: LoadingController,
+    @Inject(FirebaseApp) firebaseApp: any) {
 
+    super(navCtrl, navParams, wordsService, loading,firebaseApp)
+    this.whoami = "soundwordstofrench"
+
+  }*/
 
 }
 export const nbQuestion = 5

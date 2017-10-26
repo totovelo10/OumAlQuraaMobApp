@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-list class="responsive">
     <!--button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"-->
-    <button ion-item *ngFor="let course of courses | async" (click)="courseSelected(course)">
+    <button ion-item *ngFor="let course of courses" (click)="courseSelected(course)">
       <!--ion-icon name="{{item.icon}}" item-left></ion-icon-->
       {{course.title}}
       <!--div class="item-note" item-right>

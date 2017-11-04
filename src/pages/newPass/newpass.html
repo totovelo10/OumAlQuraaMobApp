@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Nouveau mot de passe</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content class="has-header">
+      Renseignez votre email, un mot de passe temporaire vous sera livré.
+    <ion-list>
+        
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email"  [(ngModel)]="email" ></ion-input>
+          </ion-item>
+        
+        </ion-list>
+        <br/><br/>
+        <div class="buttonCenter">
+            <button ion-button color="secondary" round (click)="validate()">Valider</button>
+          </div>
+        
+        
+  </ion-content>

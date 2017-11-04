@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Mon compte</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="has-header">
+    <div *ngIf="!accountcreated; else elseBlock">
+    <ion-list >
+
+        <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Mot de passe</ion-label>
+            <ion-input type="password" [(ngModel)]="pass" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Confirmation du mot de passe</ion-label>
+            <ion-input type="password" [(ngModel)]="confirmpass" ></ion-input>
+        </ion-item>
+
+    </ion-list>
+    <br/>
+    <br/>
+    <div class="buttonCenter">
+        <button ion-button color="secondary" round (click)="createUser()">Valider</button>
+    </div>
+
+    <div class="error">
+        {{errorMessage}}
+    </div>
+</div>
+    <ng-template #elseBlock>
+        <div class="accountcreated"> Votre compte est créé!</div>
+    </ng-template>
+
+
+</ion-content>

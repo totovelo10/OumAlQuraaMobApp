@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Authentification</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content class="has-header">
+    <ion-list>
+        
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email"  [(ngModel)]="email" ionFocus="inputFocus()"></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label floating>Mot de passe</ion-label>
+            <ion-input type="password"  [(ngModel)]="pass" ionFocus="inputFocus()"></ion-input>
+          </ion-item>
+        
+        </ion-list>
+        <br/><br/>
+        <div class="buttonCenter">
+            <button ion-button color="secondary" round (click)="login()">Valider</button>
+          </div>
+
+          <br/><br/>
+          <div class="error">
+              {{errorMessage}}
+          </div>
+          <br/><br/>
+        <div class="noconnect"><a (click)="goToNewPass()">Mot de passe oublié?</a>      
+        <a (click)="goToSignup()">Créer un compte</a></div>
+     
+        <br/><br/>
+        
+  </ion-content>

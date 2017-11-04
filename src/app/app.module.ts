@@ -3,15 +3,21 @@ import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+// import angularfire modules
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-//import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import {ExoParentPage} from '../pages/exercices/exo-parent'
 import { CoursesPage } from '../pages/courses/courses';
 import { DictationWordsPage } from '../pages/exercices/dictation-words/dictation-words';
 import { CourseDetailsPage } from '../pages/course-details/course-details';
 
+
+// import authentification and signup page
+import { AuthentificationPage } from '../pages/authentification/authentification';
+import { SignupPage } from '../pages/signup/signup';
+import { NewPassPage } from '../pages/newpass/newpass';
 // import exercices pages
 
 import { ExercicesPage } from '../pages/exercices/exercices';
@@ -46,6 +52,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
 @NgModule({
   declarations: [
     MyApp,
+    AuthentificationPage,
     ExoParentPage,
     ExercicesCoursesPage,
     ArabicToFrenchPage,
@@ -63,20 +70,26 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionImageToArabicPage,
     CorrectionSoundWordsToFrenchPage,
     CorrectionDictationWordsPage,
-    CorrectionCorrectSentencesPage
+    CorrectionCorrectSentencesPage,
+    SignupPage,
+    NewPassPage
+    
     
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.firebase),
-    AngularFireDatabaseModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    AuthentificationPage,
     ExoParentPage,
     ExercicesCoursesPage,
     ArabicToFrenchPage,
@@ -94,7 +107,9 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionImageToArabicPage,
     CorrectionSoundWordsToFrenchPage,
     CorrectionDictationWordsPage,
-    CorrectionCorrectSentencesPage
+    CorrectionCorrectSentencesPage,
+    SignupPage,
+    NewPassPage
     
   ],
   providers: [

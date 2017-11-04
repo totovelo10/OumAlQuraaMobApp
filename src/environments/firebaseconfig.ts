@@ -1,3 +1,4 @@
+
 export const firebaseConfig = {
     production: false,
     firebase: {

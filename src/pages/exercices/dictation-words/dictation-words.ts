@@ -78,9 +78,6 @@ export class DictationWordsPage {
       { id: "32", arabic: "ؤ" },
       { id: "34", arabic: "ئ" },
       { id: "30", arabic: "لا" },
-      { id: "44", arabic: "لأ" },
-      { id: "39", arabic: "لإ" },
-      { id: "50", arabic: "لآ" },
       { id: "35", arabic: "َ" },
       { id: "36", arabic: "ً" },
       { id: "37", arabic: "ُ" },
@@ -138,12 +135,12 @@ export class DictationWordsPage {
       this.maxWords = words.length;
 
       //we retrive the sounds of all words of the course
-      for(let i=0; i <this.course_words.length;i++){
-        let storageRef = firebase.storage().ref().child(this.course_words[i].sound);
+     // for(let i=0; i <this.course_words.length;i++){
+//    let storageRef = firebase.storage().ref().child(this.course_words[i].sound);
         // set all urls sound in a array
-        storageRef.getDownloadURL().then(url => this.soundWords.push(url))
+     //   storageRef.getDownloadURL().then(url => this.soundWords.push(url))
         
-      }
+     // }
       /*
       we want to check if the future wordchoosen was chosen yet
       then we pass the five words and the wordchosen in temporary variables

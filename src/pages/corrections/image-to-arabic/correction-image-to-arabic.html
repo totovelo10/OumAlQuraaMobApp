@@ -9,7 +9,7 @@
 <ion-title>
     {{selectedCourse.title}}
   </ion-title>
-<ion-content padding>
+<ion-content padding class="has-header">
   <div *ngIf="!answeropened; else elseBlock">
     <ion-list>
       <ion-item *ngFor="let wi of wordsIcon">

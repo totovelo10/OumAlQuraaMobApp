@@ -5,6 +5,7 @@ import { Platform, MenuController, Nav,AlertController   } from 'ionic-angular';
 //import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 
 import { CoursesPage } from '../pages/courses/courses';
+import { AuthentificationPage } from '../pages/authentification/authentification';
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,7 +17,7 @@ import { File } from '@ionic-native/file';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   alert:AlertController
-  rootPage = CoursesPage;
+  rootPage = AuthentificationPage;
   pages: Array<{ title: string, component: any }>;
 
   constructor(
@@ -33,7 +34,8 @@ export class MyApp {
     this.pages = [
 
       { title: 'Cours', component: CoursesPage },
-      { title: 'Exercices', component: ExercicesPage }
+      { title: 'Exercices', component: ExercicesPage },
+      { title: 'Se déconnecter', component: AuthentificationPage }
      
     ];
   }
@@ -67,7 +69,11 @@ export class MyApp {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
+    if(page == AuthentificationPage){
+      this.menu.enable(false)
+    }
     this.nav.setRoot(page.component);
+    
   }
 
   

@@ -39,6 +39,9 @@ import { CorrectionImageToArabicPage } from '../pages/corrections/image-to-arabi
 import { CorrectionSoundWordsToFrenchPage } from '../pages/corrections/sound-words-to-french/correction-sound-words-to-french';
 import { CorrectionDictationWordsPage } from '../pages/corrections/dictation-words/correction-dictation-words';
 import { CorrectionCorrectSentencesPage } from '../pages/corrections/correct-sentences/correction-correct-sentences';
+// Progression
+import{ProgressionPage} from '../pages/progression/progression';
+//import native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
@@ -72,7 +75,8 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionDictationWordsPage,
     CorrectionCorrectSentencesPage,
     SignupPage,
-    NewPassPage
+    NewPassPage,
+    ProgressionPage
     
     
   ],
@@ -109,7 +113,8 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionDictationWordsPage,
     CorrectionCorrectSentencesPage,
     SignupPage,
-    NewPassPage
+    NewPassPage,
+    ProgressionPage
     
   ],
   providers: [

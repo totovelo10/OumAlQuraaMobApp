@@ -7,6 +7,7 @@ import { Platform, MenuController, Nav,AlertController   } from 'ionic-angular';
 import { CoursesPage } from '../pages/courses/courses';
 import { AuthentificationPage } from '../pages/authentification/authentification';
 import { ExercicesPage } from '../pages/exercices/exercices';
+import { ProgressionPage} from '../pages/progression/progression';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
@@ -35,6 +36,7 @@ export class MyApp {
 
       { title: 'Cours', component: CoursesPage },
       { title: 'Exercices', component: ExercicesPage },
+      {title: 'Progression',component:ProgressionPage},
       { title: 'Se déconnecter', component: AuthentificationPage }
      
     ];
@@ -45,7 +47,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 100);
 
       /*this.platform.registerBackButtonAction(() => {
         if(this.nav.canGoBack()){

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase,AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase';
+
+
 
 @Injectable()
 export class SentencesService {
@@ -16,7 +16,7 @@ export class SentencesService {
 
   getSentences(course:any): AngularFireList<any[]> {
     let url='/sentences/'
-    let ref = firebase.database().ref
+   
        // we select the sentences that have the course to true in the bdd
     this.course_sentences = this.db.list(url, ref => ref.orderByChild(course.id).equalTo(true))
         

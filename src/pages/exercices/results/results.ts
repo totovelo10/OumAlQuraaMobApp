@@ -41,7 +41,7 @@ export class ResultsPage {
   exoPage:any;
   consigne:any
   soundWords: string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public platform: Platform,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public platform: Platform) {
     this.course_words = navParams.get('course_words')
     this.note = navParams.get('note');
     this.selectedCourse = navParams.get('course');

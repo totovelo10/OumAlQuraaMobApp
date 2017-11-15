@@ -55,7 +55,7 @@ export class SignupPage {
                    this.updateUserId()
                 })
                 .catch((error) => {
-
+                    this.accountcreated = false
                     console.log(error)
                     switch (error.code) {
                         case 'auth/email-already-in-use': this.errorMessage = "Le compte existe déjà"; break

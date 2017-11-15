@@ -21,9 +21,8 @@ export class UsersService{
     let ref = firebase.database()
     
        // we retrieve the user
-    this.users=this.db.list(url).valueChanges()
-   //this.user = this.db.list(url, ref => ref.orderByChild('id').equalTo(userId))
-   this.user=this.db.list(url,ref => ref.orderByChild('id').equalTo(1))
+   
+   this.user=this.db.list(url,ref => ref.orderByChild('id').equalTo(userId))
     
    
       return this.user;
@@ -34,8 +33,6 @@ export class UsersService{
     let ref = firebase.database()
     
        // we retrieve the user
-    this.users=this.db.list(url).valueChanges()
-   //this.user = this.db.list(url, ref => ref.orderByChild('id').equalTo(userId))
    this.user=this.db.list(url,ref => ref.orderByChild('email').equalTo(email))
     
    

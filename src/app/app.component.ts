@@ -36,7 +36,7 @@ export class MyApp {
 
       { title: 'Cours', component: CoursesPage },
       { title: 'Exercices', component: ExercicesPage },
-      {title: 'Progression',component:ProgressionPage},
+      {title: 'Progression',component: ProgressionPage},
       { title: 'Se déconnecter', component: AuthentificationPage }
      
     ];

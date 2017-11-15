@@ -1,10 +1,26 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>Ma Progression</ion-title>
-    </ion-navbar>
-  </ion-header>
-  <ion-content>
-    Nom : {{user.nom}}
-    <br>Prénom : {{user.prenom}}
-   <br> Kunya : {{user.kunya}}
-  </ion-content>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ma Progression</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  {{user.lastname}} {{user.firstname}}
+  <br>{{user.kunya}}
+  <br>
+  <br>
+  <ion-list>
+
+    <ion-item *ngFor="let res of result">
+
+      Cours: {{res.course}}
+      <br> Type exercice: {{res.exo}}
+      <br> Nombre de proposition: {{res.nbQuestion}}
+      <br> Nombre de bonne réponses: {{res.nbga}}
+      <br> Pourcentage de bonne réponses: {{res.result}}
+      <br> UserId: {{res.userId}}
+    </ion-item>
+  </ion-list>
+</ion-content>

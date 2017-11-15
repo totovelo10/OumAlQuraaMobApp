@@ -165,6 +165,7 @@ getFiveWords(max): any[] {
          userChoices: this.userChoices,
          displayedWords: this.exDisplayedWords,
          answers: this.answers,
+         nbproposition:nbQuestion,
          whoami: 'frenchtoarabic'
        });
 

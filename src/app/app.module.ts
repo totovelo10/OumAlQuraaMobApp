@@ -41,12 +41,13 @@ import { CorrectionDictationWordsPage } from '../pages/corrections/dictation-wor
 import { CorrectionCorrectSentencesPage } from '../pages/corrections/correct-sentences/correction-correct-sentences';
 // Progression
 import{ProgressionPage} from '../pages/progression/progression';
-//import native
+//import native and extern plugin
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { IonicStorageModule } from '@ionic/storage';
 import 'firebase/database';
 import 'firebase/app';
 import 'firebase/storage'
@@ -88,6 +89,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     HttpClientModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
     
   ],
   bootstrap: [IonicApp],

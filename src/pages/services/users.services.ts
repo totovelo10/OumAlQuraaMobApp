@@ -36,7 +36,7 @@ export class UsersService{
        // we retrieve the user
     this.users=this.db.list(url).valueChanges()
    //this.user = this.db.list(url, ref => ref.orderByChild('id').equalTo(userId))
-   this.user=this.db.list(url,ref => ref.orderByChild('id').equalTo(email))
+   this.user=this.db.list(url,ref => ref.orderByChild('email').equalTo(email))
     
    
       return this.user;

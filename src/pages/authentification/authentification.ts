@@ -8,6 +8,7 @@ import { UsersService } from '../services/users.services';
 import { User } from '../../interfaces/user'
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Storage } from '@ionic/storage';
 @Component({
     selector: 'authentification',
     templateUrl: 'authentification.html',
@@ -20,13 +21,14 @@ export class AuthentificationPage {
     errorMessage: string
     signupPage: SignupPage
     activeMenu: string;
-    user: AngularFireList<User>
+    user: User
 
     constructor(private navCtrl: NavController,
         public navParams: NavParams,
         public menu: MenuController,
         public afAuth: AngularFireAuth,
-        private usersServices: UsersService) {
+        private usersServices: UsersService,
+        private storage: Storage) {
         this.menu.enable(false)
         this.email = "";
         this.pass = "";
@@ -54,6 +56,14 @@ export class AuthentificationPage {
             .then((value) => {
                 this.menu.enable(true)
 
+               this.usersServices.getUserByEmail(this.email).valueChanges().subscribe(
+                (user) => {
+                    console.log(user)
+                    this.user = user[0]
+                    console.log(this.user.id)
+                    this.storage.set('user', this.user);
+                  }
+               )
               
                 this.navCtrl.setRoot(CoursesPage)
             })

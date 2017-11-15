@@ -36,6 +36,7 @@ export class ArabicToFrenchPage  extends ExoParentPage{
     @Inject(FirebaseApp) firebaseApp: any) {
 
     super(navCtrl, navParams, wordsService, loading, firebaseApp)
+    
     this.whoami = "arabictofrench"
 
   }

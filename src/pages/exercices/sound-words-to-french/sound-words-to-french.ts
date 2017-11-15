@@ -198,6 +198,7 @@ export class SoundWordsToFrenchPage {
           displayedWords: this.exDisplayedWords,
           course_words:this.course_words,
           answers: this.answers,
+          nbproposition:nbQuestion,
           whoami: this.whoami
         });
 

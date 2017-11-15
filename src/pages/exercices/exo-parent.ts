@@ -225,6 +225,7 @@ export class ExoParentPage {
                     displayedWords: this.exDisplayedWords,
                     wordsearchedImageUrls: this.wordsearchedImageUrls,
                     answers: this.answers,
+                    nbproposition:this.nbQuestion,
                     whoami: this.whoami
                 });
 

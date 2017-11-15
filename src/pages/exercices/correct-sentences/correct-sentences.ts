@@ -163,6 +163,7 @@ export class CorrectSentencesPage  {
           falseDisplayed:this.falseDisplayed,
           answers: this.answers,
           consigne:this.consigne,
+          nbproposition:nbQuestion,
           whoami: this.whoami
         });
       }

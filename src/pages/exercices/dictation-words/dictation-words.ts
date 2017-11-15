@@ -252,6 +252,7 @@ export class DictationWordsPage {
         //  displayedWords: this.exDisplayedWords,
           answers: this.answers,
           soundWords:this.soundWords,
+          nbproposition:nbQuestion,
           whoami: 'dictationwords'
         });
 

@@ -52,7 +52,7 @@ export class SignupPage {
                     this.userId = userId.key;
                     console.log(this.url)
                     console.log(this.userId)
-                   this.updateUser()
+                   this.updateUserId()
                 })
                 .catch((error) => {
 
@@ -76,7 +76,7 @@ export class SignupPage {
         }
     }
 
-    updateUser(){
+    updateUserId(){
         firebase.database().ref(this.url).update({ id: this.userId })
         .catch((error) =>{
             console.log(error)

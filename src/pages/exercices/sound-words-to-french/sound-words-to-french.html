@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
           </button>
-    <ion-title>Son</ion-title>
+    <ion-title>Audio</ion-title>
     <ion-title>
         {{selectedCourse.title}}
       </ion-title>
@@ -20,13 +20,7 @@
               <button ion-button color="secondary" round (click)="playSound(wordsearched)">Écouter de nouveau</button>
             </div>
       </ng-template>
-  <!--ion-card class="mycard" (click)="playSound(wordsearched)" >
-    <ion-card-content>
-      <div class="circle"> <div class="play"></div></div>
-     
-      <ion-icon name="play" item-end></ion-icon>
-    </ion-card-content>
-  </ion-card-->
+
 
   <ion-list radio-group dir="rtl" [(ngModel)]="wordchoosen">
     <ion-item *ngFor="let word of displayed_words">

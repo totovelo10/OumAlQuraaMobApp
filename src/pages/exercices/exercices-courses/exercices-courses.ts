@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { ExoParentPage } from '../exo-parent';
 import { ArabicToFrenchPage } from '../arabic-to-french/arabic-to-french';
 import { ImageToArabicPage } from '../image-to-arabic/image-to-arabic';
 import { FrenchToArabicPage } from '../french-to-arabic/french-to-arabic';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,Content } from 'ionic-angular';
 import { WordsService } from '../../services/words.services'
 import { SoundWordsToFrenchPage } from '../sound-words-to-french/sound-words-to-french';
 import { DictationWordsPage } from '../dictation-words/dictation-words';
@@ -17,6 +17,7 @@ import * as firebase from 'firebase';
 })
 
 export class ExercicesCoursesPage {
+  @ViewChild(Content) content: Content;
   exercices: Array<{ title: string, component: any }>;
   selectedCourse: any;
   maxWords: number;
@@ -71,7 +72,10 @@ export class ExercicesCoursesPage {
     })
 
   }
-
+  ionViewDidEnter(): void {
+    
+            this.content.resize()
+        }
   openExo(exo) {
     // navigate to the new exo 
     this.navCtrl.push(exo.component, {

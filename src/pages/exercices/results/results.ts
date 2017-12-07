@@ -123,14 +123,16 @@ export class ResultsPage {
 
       this.platform.registerBackButtonAction(() => {
         
-        this.navCtrl.popToRoot();
+        //this.navCtrl.popToRoot();
+        this.navCtrl.setRoot(ExercicesCoursesPage, {course: this.selectedCourse})
       });
     });
   }
 
   backToExos(course: String) {
 
-    this.navCtrl.popToRoot();
+    //this.navCtrl.popToRoot();
+    this.navCtrl.setRoot(ExercicesCoursesPage, {course: this.selectedCourse})
   }
   goToCorrection() {
 

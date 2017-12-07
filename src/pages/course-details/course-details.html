@@ -18,13 +18,15 @@
     <ion-list [virtualScroll]="course_words" approxItemHeight="10px">
         <ion-list-header dir="rtl">
             الكلمات الجديدة
-            </ion-list-header>
-            <ion-item dir="rtl" *virtualItem="let word" (click)="play(word)">
-                <!--button   -->
+        </ion-list-header>
+        <!--ion-item  *virtualItem="let word" (click)="play(word)"-->
+            <button dir="rtl" ion-item  *virtualItem="let word" (click)="play(word)">
+           
                 <ion-icon name="volume-up" item-end class="iconic"></ion-icon>
                 {{word.arabic}} : {{word.french}}
-                <!--/button-->
-            </ion-item>
+           
+            </button>
+        <!--/ion-item-->
     </ion-list>
     <!--/ion-card-->
     <ion-card>

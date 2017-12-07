@@ -55,7 +55,6 @@ import 'firebase/app';
 import 'firebase/storage'
 import { firebaseConfig } from '../environments/firebaseconfig';
 
-import { DynamicComponentHostDirective } from '../pages/directive-host'
 @NgModule({
   declarations: [
     MyApp,
@@ -82,7 +81,7 @@ import { DynamicComponentHostDirective } from '../pages/directive-host'
     NewPassPage,
     ProgressionPage,
     EvaluationPage,
-    DynamicComponentHostDirective
+    
     
   ],
   imports: [

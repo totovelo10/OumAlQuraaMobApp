@@ -11,7 +11,6 @@ import { DictationWordsPage } from '../exercices/dictation-words/dictation-words
 import { ImageToArabicPage } from '../exercices/image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../exercices/sound-words-to-french/sound-words-to-french';
 import { CorrectSentencesPage } from '../exercices/correct-sentences/correct-sentences';
-import { DynamicComponentHostDirective } from '../directive-host'
 import { Storage } from '@ionic/storage';
 @Component({
     selector: 'evaluation',

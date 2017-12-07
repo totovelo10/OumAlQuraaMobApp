@@ -154,7 +154,8 @@ export class ResultsPage {
   }
 
   repeatExo() {
-    this.navCtrl.push(this.exoPage, { course: this.selectedCourse })
+    this.navCtrl.setRoot(this.exoPage, { course: this.selectedCourse })
+    //this.navCtrl.push(this.exoPage, { course: this.selectedCourse })
   }
 
   updateUserId(){

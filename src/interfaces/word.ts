@@ -9,5 +9,6 @@ export interface WordIcon{
     arabic:string;
     french:string;
     answericon:string;
+    img:string
 }
 

@@ -42,7 +42,7 @@ export class ExercicesCoursesPage {
       { title: 'Du français à l\'arabe', component: FrenchToArabicPage },
       { title: 'De l\'arabe au français', component: ArabicToFrenchPage },
       { title: 'Images', component: ImageToArabicPage },
-      { title: 'Sons', component: SoundWordsToFrenchPage },
+      { title: 'Audios', component: SoundWordsToFrenchPage },
       { title: 'Dictée', component: DictationWordsPage },
       { title: 'Corriger les phrases', component: CorrectSentencesPage }
 

@@ -45,10 +45,12 @@ export class CorrectionImageToArabicPage {
 
   ngOnInit(): void {
     for(let i=0;i<this.wordsSearched.length;i++){
-      let wi = {arabic:"",french:"",answericon:""};
+      let wi = {arabic:"",french:"",answericon:"",img:""};
       wi.arabic=this.wordsSearched[i].arabic
       wi.french=this.wordsSearched[i].french
       wi.answericon=this.answericon[i]
+      wi.img=this.wordsearchedImageUrls[i]
+      console.log(wi.img)
       this.wordsIcon.push(wi)
     }
 

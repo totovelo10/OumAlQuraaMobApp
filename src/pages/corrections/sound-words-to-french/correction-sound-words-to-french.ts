@@ -47,7 +47,7 @@ export class CorrectionSoundWordsToFrenchPage {
 
   ngOnInit(): void {
     for (let i = 0; i < this.wordsSearched.length; i++) {
-      let wi = { arabic: "", french: "", sound: "", answericon: "" };
+      let wi = { arabic: "", french: "", sound: "", answericon: "",img:"" };
       wi.arabic = this.wordsSearched[i].arabic
       wi.french = this.wordsSearched[i].french
       wi.sound = this.wordsSearched[i].sound

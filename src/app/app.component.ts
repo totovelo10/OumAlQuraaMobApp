@@ -8,10 +8,12 @@ import { CoursesPage } from '../pages/courses/courses';
 import { AuthentificationPage } from '../pages/authentification/authentification';
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { ProgressionPage} from '../pages/progression/progression';
+import { EvaluationPage} from '../pages/evaluation/evaluation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
-
+import { Storage } from '@ionic/storage';
+import { storage } from 'firebase';
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,7 +29,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public alertCtrl: AlertController,
-    private file: File
+    private file: File,
+    private storage: Storage
   ) {
     this.initializeApp();
 
@@ -37,6 +40,7 @@ export class MyApp {
       { title: 'Cours', component: CoursesPage },
       { title: 'Exercices', component: ExercicesPage },
       {title: 'Progression',component: ProgressionPage},
+      {title: 'Evaluation',component: EvaluationPage},
       { title: 'Se déconnecter', component: AuthentificationPage }
      
     ];
@@ -72,9 +76,16 @@ export class MyApp {
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();
+    console.log(page)
     // navigate to the new page if it is not the current page
-    if(page == AuthentificationPage){
+    if(page.component ==  AuthentificationPage){
+      console.log("we get out")
+      // the user is deconnected so we break the auto connect
+      this.storage.remove('email_ceo').then((val)=>{
+        console.log(val)})
+      this.storage.remove('mdp_ceo').then((val)=>{console.log(val)})
       this.menu.enable(false)
+      
     }
     this.nav.setRoot(page.component);
     

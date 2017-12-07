@@ -41,6 +41,8 @@ import { CorrectionDictationWordsPage } from '../pages/corrections/dictation-wor
 import { CorrectionCorrectSentencesPage } from '../pages/corrections/correct-sentences/correction-correct-sentences';
 // Progression
 import{ProgressionPage} from '../pages/progression/progression';
+// Evaluation
+import { EvaluationPage } from '../pages/evaluation/evaluation';
 //import native and extern plugin
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -53,6 +55,7 @@ import 'firebase/app';
 import 'firebase/storage'
 import { firebaseConfig } from '../environments/firebaseconfig';
 
+import { DynamicComponentHostDirective } from '../pages/directive-host'
 @NgModule({
   declarations: [
     MyApp,
@@ -77,8 +80,9 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionCorrectSentencesPage,
     SignupPage,
     NewPassPage,
-    ProgressionPage
-    
+    ProgressionPage,
+    EvaluationPage,
+    DynamicComponentHostDirective
     
   ],
   imports: [
@@ -116,7 +120,8 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionCorrectSentencesPage,
     SignupPage,
     NewPassPage,
-    ProgressionPage
+    ProgressionPage,
+    EvaluationPage
     
   ],
   providers: [

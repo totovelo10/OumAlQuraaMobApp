@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Evaluation {{user.currentunit}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <h3 class="exotitle">Arabe-Français</h3>
+    <ion-list dir="rtl">
+        <ion-item *ngFor="let wordaf of wordsAF">
+            <ion-label floating>{{wordaf.arabic}}</ion-label>
+            <ion-input type="text" [(ngModel)]="wordaf.answer" class="inptext"></ion-input>
+        </ion-item>
+    </ion-list>
+    <h3 class="exotitle">Français-Arabe</h3>
+    <h3 class="exotitle">Images</h3>
+    <h3 class="exotitle">Sons</h3>
+    <h3 class="exotitle">Dictee</h3>
+    <h3 class="exotitle">Correction des phrases</h3>
+
+</ion-content>

@@ -90,4 +90,5 @@
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
+    <allow-navigation href="http://192.168.0.17:8101" />
 </widget>

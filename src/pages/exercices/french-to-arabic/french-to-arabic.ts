@@ -140,15 +140,17 @@ getFiveWords(max): any[] {
  }
 
  validate() {
-   this.exDisplayedWords.push(this.displayed_words);
-   this.exWordsSearched.push(this.wordsearched)
+   
    if (this.wordchoosen == null) {
 
    }
 
    else {
+    this.exDisplayedWords.push(this.displayed_words);
+    this.exWordsSearched.push(this.wordsearched)
      this.userChoices.push(this.wordchoosen)
      console.log(this.wordchoosen)
+     
      if (this.wordchoosen == this.wordsearched) {
        this.note++
        this.answers.push("checkmark-circle-outline")
@@ -171,8 +173,11 @@ getFiveWords(max): any[] {
 
       // console.log("Finiiito!!!")
      }
-     else this.ngOnInit()//this.getWords(this.selectedCourse);
-
+     
+     else {
+      this.wordchoosen=null
+       this.ngOnInit()//this.getWords(this.selectedCourse);
+     }
    }
  }
 

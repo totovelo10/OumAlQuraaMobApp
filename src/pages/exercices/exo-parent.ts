@@ -9,12 +9,12 @@ import 'firebase/storage'
 @Component({
     selector: 'exo-parent',
     template: 'wait...',
-   // providers: [WordsService]
+    // providers: [WordsService]
 })
 
 export class ExoParentPage {
     firebaseApp: FirebaseApp
-    nbQuestion:number
+    nbQuestion: number
     selectedCourse: any;
     course_words: any[];
     displayed_words: Word[];
@@ -31,15 +31,15 @@ export class ExoParentPage {
     wordsearchedImageUrl: string
     storageRef: any
     whoami: string;
-
+    eval: boolean
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         protected wordsService: WordsService,
         public loading: LoadingController,
         @Inject(FirebaseApp) firebaseApp: any) {
-
         this.nbQuestion = 5
+        this.eval = navParams.get('eval')
         // we retrive the selected course from the navigation parameters and the 
         this.selectedCourse = navParams.get('course');
         this.wordsearched = {}// the wordsearched
@@ -53,26 +53,7 @@ export class ExoParentPage {
         this.wordsearchedImageUrl = ""
         this.storageRef = firebaseApp.storage().ref()
     }
-    /*constructor(public $injector){
-        $injector.get('NavController');
-        $injector.get('NavParams');
-        $injector.get('WordsService');
-        $injector.get('LoadingController');
-        $injector.get('FirebaseApp');
-        this.nbQuestion = 5
-        // we retrive the selected course from the navigation parameters and the 
-        this.selectedCourse = this.navParams.get('course');
-        this.wordsearched = {}// the wordsearched
-        this.note = 0;
-        this.nbproposition = 0 // number of questions in the exo
-        this.exWordsSearched = [];// this tab has the words that were chosen before
-        this.userChoices = [];
-        this.exDisplayedWords = [] // this tab has the words that were displayed in a specific question
-        this.answers = []// this tab retrieve the state of the answer. If the answer is good the tab element is true else is false
-        this.wordsearchedImageUrls = []
-        this.wordsearchedImageUrl = ""
-        this.storageRef = this.firebaseApp.storage().ref()
-    }*/
+
     //getWords of a Course
     getWords(selectedCourse): void {
         let tmp_displayed_words: any[];
@@ -81,7 +62,7 @@ export class ExoParentPage {
         this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
             this.course_words = words;
             this.maxWords = words.length;
-            
+
             /*
             we want to check if the future wordchoosen was chosen yet
             then we pass the five words(five proposition in the question) and the wordchosen in temporary variables
@@ -118,21 +99,21 @@ export class ExoParentPage {
 
     ngOnInit(): void {
         this.getWords(this.selectedCourse);
-       // this.ionViewLoaded()
+        // this.ionViewLoaded()
         console.log("wodch " + this.wordchoosen)
 
     }
 
-   /* ionViewLoaded() {
-        let loader = this.loading.create({
-            content: 'Getting latest entries...',
-        });
-
-        //loader.present().then(() => {
-            this.getWords(this.selectedCourse);
-         //   loader.dismiss();
-       // });
-}*/
+    /* ionViewLoaded() {
+         let loader = this.loading.create({
+             content: 'Getting latest entries...',
+         });
+ 
+         //loader.present().then(() => {
+             this.getWords(this.selectedCourse);
+          //   loader.dismiss();
+        // });
+ }*/
     getFiveWords(max): any[] {
         /*
         we want to retrieve randomly five words from the words of the course
@@ -195,6 +176,7 @@ export class ExoParentPage {
             // if the user click validate without chose a word nothing is happening
             //TODO add a toast with message "choose a word"
             console.log(this.wordchoosen)
+            console.log("wesh")
         }
 
         else {
@@ -215,6 +197,7 @@ export class ExoParentPage {
             }
             this.nbproposition++ // the number of the question increased
             if (this.nbproposition == this.nbQuestion) {
+
                 // if we reach the  number of nbQuestion we exit
                 // giving all these parameters to result page
                 this.navCtrl.push(ResultsPage, {
@@ -225,13 +208,16 @@ export class ExoParentPage {
                     displayedWords: this.exDisplayedWords,
                     wordsearchedImageUrls: this.wordsearchedImageUrls,
                     answers: this.answers,
-                    nbproposition:this.nbQuestion,
+                    nbproposition: this.nbQuestion,
                     whoami: this.whoami
                 });
 
 
             }
-            else this.ngOnInit() // while the number of the question did not reached nbQuestion
+            else {
+                this.wordchoosen = null
+                this.ngOnInit() 
+            }// while the number of the question did not reached nbQuestion
             //else this.ionViewLoaded()
             // we continue the exo
 

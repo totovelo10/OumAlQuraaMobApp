@@ -82,6 +82,14 @@ export class CorrectionSoundWordsToFrenchPage {
         this.platform.ready().then(() => {
           let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title + '/' + sound
           let file: MediaObject = this.media.create(filepath)
+                  // fires when file status changes
+                  file.onStatusUpdate.subscribe((status) => {
+                    if (status == 4) {
+                      console.log("file release")
+                      file.release();
+                    }
+                  }
+                  );
           file.play()
         }
         )

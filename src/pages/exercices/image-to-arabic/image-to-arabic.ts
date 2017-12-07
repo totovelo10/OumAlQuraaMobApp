@@ -163,14 +163,16 @@ getFiveWords(max): any[] {
  }
 
  validate() {
-   this.exDisplayedWords.push(this.displayed_words);
-   this.exWordsSearched.push(this.wordsearched)
-   this.wordsearchedImageUrls.push(this.wordsearchedImageUrl)
+  
    if (this.wordchoosen == null) {
 
    }
 
    else {
+
+    this.exDisplayedWords.push(this.displayed_words);
+    this.exWordsSearched.push(this.wordsearched)
+    this.wordsearchedImageUrls.push(this.wordsearchedImageUrl)
      this.userChoices.push(this.wordchoosen)
      console.log(this.wordchoosen)
      if (this.wordchoosen == this.wordsearched) {
@@ -196,8 +198,10 @@ getFiveWords(max): any[] {
 
 
      }
-     else this.ngOnInit()//this.getWords(this.selectedCourse);
-
+     else {
+        this.wordchoosen = null  
+        this.ngOnInit()//this.getWords(this.selectedCourse);
+     }
    }
  }
 

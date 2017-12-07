@@ -1,33 +1,36 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{selectedItem.title}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{selectedItem.title}}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="has-header amiri" overflow-scroll="true">
-  <ion-card>
-      <ion-card-header dir="rtl" class="titleCard">
-          النص
-      </ion-card-header>
-      <ion-card-content>
-          <div dir="rtl" class="textCourse" [innerHTML]="selectedItem.text"></div>
-      </ion-card-content>
-  </ion-card>
-  <ion-card>
-      <ion-card-header class="titleCard" dir="rtl">
-          الكلمات الجديدة
-      </ion-card-header>
-  <ion-list dir="rtl">
-    <button ion-item  *ngFor="let word of course_words" (click)="play(word)">
-    <ion-icon name="volume-up" item-end class= "iconic"></ion-icon>
-    {{word.arabic}} : {{word.french}}
-    </button>
-  </ion-list>
-</ion-card>
-<ion-card>
-    <ion-card-header class="titleCard" dir="rtl">
-        القواعد
-    </ion-card-header>
-<div class="rulesCourse" [innerHTML]="selectedItem.rules"></div>
-</ion-card>
+    <ion-card>
+        <ion-card-header dir="rtl" class="titleCard">
+            النص
+        </ion-card-header>
+        <ion-card-content>
+            <div dir="rtl" class="textCourse" [innerHTML]="selectedItem.text"></div>
+        </ion-card-content>
+    </ion-card>
+    <!--ion-card-->
+
+    <ion-list [virtualScroll]="course_words" approxItemHeight="10px">
+        <ion-list-header dir="rtl">
+            الكلمات الجديدة
+            </ion-list-header>
+            <ion-item dir="rtl" *virtualItem="let word" (click)="play(word)">
+                <!--button   -->
+                <ion-icon name="volume-up" item-end class="iconic"></ion-icon>
+                {{word.arabic}} : {{word.french}}
+                <!--/button-->
+            </ion-item>
+    </ion-list>
+    <!--/ion-card-->
+    <ion-card>
+        <ion-card-header class="titleCard" dir="rtl">
+            القواعد
+        </ion-card-header>
+        <div class="rulesCourse" [innerHTML]="selectedItem.rules"></div>
+    </ion-card>
 </ion-content>

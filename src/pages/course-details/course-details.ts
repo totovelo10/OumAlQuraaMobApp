@@ -50,7 +50,7 @@ export class CourseDetailsPage {
 
       //we retrive the sounds of all words
       for (let i = 0; i < this.course_words.length; i++) {
-        console.log((this.course_words[i].sound))
+        //console.log((this.course_words[i].sound))
         let storageRefS = firebase.storage().ref().child(this.course_words[i].sound);
         // set all urls sound in a array
         storageRefS.getDownloadURL().then(url => this.createSoundFile(this.soundUrl.push(url), i))
@@ -79,59 +79,78 @@ export class CourseDetailsPage {
 
 
 
-play(word): void {
-  for(let i = 0; i < this.course_words.length; i++) {
-    console.log(this.course_words[i])
-    let course = this.selectedItem.id + "/"
-    let sound = word.sound.replace(course, "")
-    if (this.course_words[i].sound.includes(sound)) {
-      this.platform.ready().then(() => {
-        let filepath = this.file.externalDataDirectory + '/' + this.selectedItem.title + '/' + sound
-        let file: MediaObject = this.media.create(filepath)
-        file.play()
+  play(word): void {
+    for (let i = 0; i < this.course_words.length; i++) {
+
+      let course = this.selectedItem.id + "/"
+      let sound = word.sound.replace(course, "")
+      if (this.course_words[i].sound.includes(sound)) {
+        console.log(this.course_words[i])
+        if (this.platform.ready()) {
+          this.platform.ready().then(() => {
+            let filepath = this.file.externalDataDirectory + '/' + this.selectedItem.title + '/' + sound
+            let file: MediaObject = this.media.create(filepath)
+            // fires when file status changes
+            file.onStatusUpdate.subscribe((status) => {
+              if (status == 4) {
+                console.log("file release")
+                file.release();
+              }
+            }
+            );
+            file.onError.subscribe(error => console.log('Error!', error));
+            file.play();
+            //file.pause()
+            // get file duration
+            let duration = file.getDuration();
+            console.log("file duration: " + duration);
+
+
+
+          }
+          )
+        }
       }
-      )
     }
   }
-}
 
-createSoundFile(num: number, index: number) {
-  console.log(this.course_words.length)
-  console.log(this.soundUrl.length)
-  let i = num - 1
-  let url = this.soundUrl[num - 1]
-  console.log(this.soundUrl[i])
-  fetch(url)
-    .then(res => res.blob())
-    .then(res => {
-      console.log(res)
-      let course = this.selectedItem.id + "/"
-      console.log(course)
-      let filepath = this.file.externalDataDirectory + this.selectedItem.title
-      console.log(filepath)
-      let filename = this.course_words[index].sound.replace(course, "")
-      console.log(filename)
-      this.file.writeFile(filepath, filename, res)
-    })
-}
+  createSoundFile(num: number, index: number) {
+    console.log(this.course_words.length)
+    console.log(this.soundUrl.length)
+    let i = num - 1
+    let url = this.soundUrl[num - 1]
+    console.log(this.soundUrl[i])
+    fetch(url)
+      .then(res => res.blob())
+      .then(res => {
+        console.log(res)
+        let course = this.selectedItem.id + "/"
+        console.log(course)
+        let filepath = this.file.externalDataDirectory + this.selectedItem.title
+        console.log(filepath)
+        let filename = this.course_words[index].sound.replace(course, "")
+        console.log(filename)
+        this.file.writeFile(filepath, filename, res)
+      })
+  }
 
-createImageFile(num: number, index: number) {
-  console.log(this.course_words.length)
-  console.log(this.imgUrl.length)
-  let i = num - 1
-  let url = this.imgUrl[num - 1]
-  console.log(this.imgUrl[i])
-  fetch(url)
-    .then(res => res.blob())
-    .then(res => {
-      console.log(res)
-      let course = this.selectedItem.id + "/" + 'images/'
-      console.log(course)
-      let filepath = this.file.externalDataDirectory + this.selectedItem.title
-      console.log(filepath)
-      let filename = this.course_words[index].image.replace(course, "")
-      console.log(filename)
-      this.file.writeFile(filepath, filename, res)
-    })
-}
+  createImageFile(num: number, index: number) {
+    console.log(this.course_words.length)
+    console.log(this.imgUrl.length)
+    let i = num - 1
+    let url = this.imgUrl[num - 1]
+    console.log(this.imgUrl[i])
+    fetch(url)
+      .then(res => res.blob())
+      .then(res => {
+        console.log(res)
+        let course = this.selectedItem.id + "/" + 'images/'
+        console.log(course)
+        let filepath = this.file.externalDataDirectory + this.selectedItem.title
+        console.log(filepath)
+        let filename = this.course_words[index].image.replace(course, "")
+        console.log(filename)
+        this.file.writeFile(filepath, filename, res)
+      })
+  }
 }

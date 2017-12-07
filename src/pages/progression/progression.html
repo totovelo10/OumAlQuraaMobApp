@@ -11,7 +11,7 @@
   <br>{{user.kunya}}
   <br>
   <br>
-  <ion-list>
+  <!--ion-list>
 
     <ion-item *ngFor="let res of result">
 
@@ -22,5 +22,32 @@
       <br> Pourcentage de bonne réponses: {{res.result}}
       <br> UserId: {{res.userId}}
     </ion-item>
-  </ion-list>
+  </ion-list-->
+
+  <!--ion-card>
+    <ion-card-header>
+      Bar Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card-->
+
+  <ion-card>
+    <ion-card-header>
+      Doughnut Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Line Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Md5 } from 'ts-md5/dist/md5';
 import * as firebase from 'firebase/app';
-
+import { Storage } from '@ionic/storage';
 @Component({
     selector: 'signup',
     templateUrl: 'signup.html'
@@ -19,7 +19,7 @@ export class SignupPage {
     accountcreated: boolean
     url: string
     userId: any
-    constructor(db: AngularFireDatabase) {
+    constructor(db: AngularFireDatabase,private storage: Storage) {
         this.firstname = ""
         this.lastname = ""
         this.kunya = ""
@@ -34,11 +34,15 @@ export class SignupPage {
     createUser() {
         try {
             if (this.pass != this.confirmpass) throw "Les mots de passe ne correspondent pas."
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.pass)
+           
+            firebase.auth().createUserWithEmailAndPassword(this.email,this.pass)
                 .then(
                 () => {
+
                     this.accountcreated = true
-                    let mdp = Md5.hashStr(this.pass);
+                    this.storage.set('email_ceo', this.email);
+                    this.storage.set('mdp_ceo', this.pass);
+                    let mdp = Md5.hashStr(this.pass).toString();
                     let userId = firebase.database().ref('users').push({
                         email: this.email,
                         firstname: this.firstname,
@@ -53,6 +57,7 @@ export class SignupPage {
                     console.log(this.url)
                     console.log(this.userId)
                    this.updateUserId()
+
                 })
                 .catch((error) => {
                     this.accountcreated = false

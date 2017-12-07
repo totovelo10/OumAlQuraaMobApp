@@ -167,8 +167,10 @@ export class CorrectSentencesPage  {
           whoami: this.whoami
         });
       }
-      else this.ngOnInit()
-
+      else {
+        this.sentenceChoosen = null
+        this.ngOnInit()
+      }
     }
   }
 

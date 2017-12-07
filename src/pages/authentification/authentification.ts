@@ -9,6 +9,7 @@ import { User } from '../../interfaces/user'
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Storage } from '@ionic/storage';
+import { Md5 } from 'ts-md5/dist/md5';
 @Component({
     selector: 'authentification',
     templateUrl: 'authentification.html',
@@ -34,6 +35,14 @@ export class AuthentificationPage {
         this.pass = "";
         this.errorMessage = ""
 
+        this.storage.get('email_ceo').then((val) => {
+            console.log( val);
+            this.email=val
+        })
+        this.storage.get('mdp_ceo').then((val) => {
+            this.pass=val
+            this.login()
+          })
     }
 
     ionViewDidEnter(): void {
@@ -52,6 +61,7 @@ export class AuthentificationPage {
         this.navCtrl.push(NewPassPage)
     }
     login() {
+        //let mdp= Md5.hashStr(this.pass).toString();
         this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass)
             .then((value) => {
                 this.menu.enable(true)
@@ -62,6 +72,9 @@ export class AuthentificationPage {
                     this.user = user[0]
                     console.log(this.user.id)
                     this.storage.set('user', this.user);
+                    this.storage.set('email_ceo',this.email)
+                    let mdp= Md5.hashStr(this.pass).toString();
+                    this.storage.set('mdp_ceo',this.pass)
                   }
                )
               
@@ -75,6 +88,7 @@ export class AuthentificationPage {
                     case 'auth/user-disabled': this.errorMessage = "L'utilisateur a été désactivé. Veuillez contacter l'administrateur"; break
                     case 'auth/user-not-found': this.errorMessage = "L'utilisateur n'existe pas"; break
                     case 'auth/wrong-password': this.errorMessage = "Le mot de passe est incorrect"; break
+                    case 'auth/network-request-failed': this.errorMessage = "Votre connexion internet n'est actuellement pas suffisante pour l'application"
                 }
 
 

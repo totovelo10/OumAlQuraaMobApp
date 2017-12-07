@@ -4,4 +4,5 @@ export interface User{
     kunya: string;
     firstname:string;
     lastname:string;
+    currentunit:string
 }

@@ -9,7 +9,7 @@
 
 <ion-content class="has-header">
   <ion-list>
-    <button ion-item *ngFor="let course of courses | async" (click)="courseSelected(course)">
+    <button ion-item *ngFor="let course of courses" (click)="courseSelected(course)">
       Exercices du {{course.title}}
     </button>
   </ion-list>

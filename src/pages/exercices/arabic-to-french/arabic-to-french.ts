@@ -4,6 +4,7 @@ import { NavController, NavParams,LoadingController } from 'ionic-angular';
 import { WordsService } from '../../services/words.services'
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage'
+import { ToastController } from 'ionic-angular';
 @Component({
   selector: 'arabic-to-french',
   templateUrl: 'arabic-to-french.html',
@@ -33,9 +34,10 @@ export class ArabicToFrenchPage  extends ExoParentPage{
     public navParams: NavParams,
     protected wordsService: WordsService,
     public loading: LoadingController,
+    public toastCtrl: ToastController,
     @Inject(FirebaseApp) firebaseApp: any) {
 
-    super(navCtrl, navParams, wordsService, loading, firebaseApp)
+    super(navCtrl, navParams, wordsService, loading, toastCtrl,firebaseApp)
     
     this.whoami = "arabictofrench"
 

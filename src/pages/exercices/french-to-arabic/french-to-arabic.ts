@@ -6,6 +6,7 @@ import { ResultsPage } from '../results/results';
 import { Word } from '../../../interfaces/word';
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage'
+import { ToastController } from 'ionic-angular';
 @Component({
   selector: 'french-to-arabic',
   templateUrl: 'french-to-arabic.html',
@@ -29,7 +30,10 @@ export class FrenchToArabicPage{
   answers: string[]
   whoami:string
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, protected wordsService: WordsService) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    protected wordsService: WordsService,
+    private toastCtrl: ToastController) {
     // we retrive the selected course from the navigation parameters
     this.selectedCourse = navParams.get('course');
     this.wordsearched = {}
@@ -138,11 +142,24 @@ getFiveWords(max): any[] {
 
    return tab[nbr];
  }
+ presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Choisissez une réponse parmi les propositions',
+    duration: 3000,
+    position: 'bottom'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
 
  validate() {
    
    if (this.wordchoosen == null) {
-
+    this.presentToast()
    }
 
    else {

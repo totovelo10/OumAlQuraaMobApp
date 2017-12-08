@@ -8,6 +8,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { File } from '@ionic-native/file';
 import { Media, MediaObject } from '@ionic-native/media';
 import * as firebase from 'firebase';
+import { ToastController } from 'ionic-angular';
 @Component({
   selector: 'sound-words-to-french',
   templateUrl: 'sound-words-to-french.html',
@@ -40,6 +41,7 @@ export class SoundWordsToFrenchPage {
     private nativeAudio: NativeAudio,
     private file: File,
     public platform: Platform,
+    private toastCtrl: ToastController,
     private media: Media) {
 
 
@@ -170,15 +172,29 @@ export class SoundWordsToFrenchPage {
 
     return tab[nbr];
   }
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Choisissez une réponse parmi les propositions',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
 
   validate() {
-    this.exDisplayedWords.push(this.displayed_words);
-    this.exWordsSearched.push(this.wordsearched)
+    
     if (this.wordchoosen == null) {
-      console.log("wesh")
+      this.presentToast()
     }
 
     else {
+      this.exDisplayedWords.push(this.displayed_words);
+      this.exWordsSearched.push(this.wordsearched)
       this.userChoices.push(this.wordchoosen)
       console.log(this.wordchoosen)
       if (this.wordchoosen == this.wordsearched) {

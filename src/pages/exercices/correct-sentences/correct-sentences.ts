@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
 import { Sentence } from '../../../interfaces/sentence';
 import { FalseSentence } from '../../../interfaces/falsentence';
+import { ToastController } from 'ionic-angular';
 //import {ExoParentPage} from '../exo-parent';
 @Component({
   selector: 'correct-sentences',
@@ -33,7 +34,10 @@ export class CorrectSentencesPage  {
   whoami:string
   consigne:any
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, protected SentencesService: SentencesService) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    protected SentencesService: SentencesService,
+    private toastCtrl: ToastController) {
     // we retrive the selected course from the navigation parameters
     this.selectedCourse = navParams.get('course');
     this.sentenceSearched = {}
@@ -134,11 +138,26 @@ export class CorrectSentencesPage  {
     return nb;
   }
 
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Choisissez une réponse parmi les propositions',
+      duration: 3000,
+      position: 'bottom'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
   validate() {
     this.exDisplayedSentences.push(this.displayed_sentences);
     this.exSentencesSearched.push(this.sentenceSearched)
     if (this.sentenceChoosen == null) {
-
+      this.presentToast()
     }
 
     else {

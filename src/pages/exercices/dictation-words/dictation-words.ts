@@ -9,6 +9,7 @@ import { FirebaseApp } from 'angularfire2';
 import { File } from '@ionic-native/file';
 import { Media, MediaObject } from '@ionic-native/media';
 import * as firebase from 'firebase';
+import { ToastController } from 'ionic-angular';
 @Component({
   selector: 'dictation-words',
   templateUrl: 'dictation-words.html',
@@ -38,7 +39,8 @@ export class DictationWordsPage {
     private nativeAudio: NativeAudio,
     private file: File,
     public platform: Platform,
-    private media: Media) {
+    private media: Media,
+    private toastCtrl: ToastController) {
 
     this.letters = [
       { id: "19", arabic: "ا" },
@@ -223,15 +225,28 @@ export class DictationWordsPage {
 
     return tab[nbr];
   }
-
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Choisissez une réponse parmi les propositions',
+      duration: 3000,
+      position: 'bottom'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
   validate() {
-    //this.exDisplayedWords.push(this.displayed_words);
-    this.exWordsSearched.push(this.wordsearched)
-    if (this.dictee == null) {
-
+    console.log('dictee:'+this.dictee)
+    if (this.dictee == '') {
+      this.presentToast()
     }
 
     else {
+      //this.exDisplayedWords.push(this.displayed_words);
+      this.exWordsSearched.push(this.wordsearched)
       this.userChoices.push(this.dictee)
       console.log(this.dictee)
       if (this.dictee == this.wordsearched.arabic) {

@@ -5,7 +5,7 @@ import { ResultsPage } from '../exercices/results/results';
 import { Word } from '../../interfaces/word';
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage'
-
+import { ToastController } from 'ionic-angular';
 @Component({
     selector: 'exo-parent',
     template: 'wait...',
@@ -37,6 +37,7 @@ export class ExoParentPage {
         public navParams: NavParams,
         protected wordsService: WordsService,
         public loading: LoadingController,
+        public toastCtrl: ToastController,
         @Inject(FirebaseApp) firebaseApp: any) {
         this.nbQuestion = 5
         this.eval = navParams.get('eval')
@@ -169,14 +170,27 @@ export class ExoParentPage {
 
         return tab[nbr];
     }
-
+    
+    presentToast() {
+        let toast = this.toastCtrl.create({
+          message: 'Choisissez une réponse parmi les propositions',
+          duration: 3000,
+          position: 'bottom'
+        });
+    
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+    
+        toast.present();
+      }
     validate() {
 
         if (this.wordchoosen == null) {
             // if the user click validate without chose a word nothing is happening
             //TODO add a toast with message "choose a word"
             console.log(this.wordchoosen)
-            console.log("wesh")
+            this.presentToast()
         }
 
         else {

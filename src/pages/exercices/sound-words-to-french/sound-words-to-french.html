@@ -23,7 +23,7 @@
 
 
   <ion-list radio-group dir="rtl" [(ngModel)]="wordchoosen">
-    <ion-item *ngFor="let word of displayed_words">
+    <ion-item text-wrap *ngFor="let word of displayed_words">
       <ion-label>{{word.french}}</ion-label>
       <ion-radio [value]="word"></ion-radio>
     </ion-item>

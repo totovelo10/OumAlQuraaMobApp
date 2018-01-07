@@ -13,7 +13,8 @@ export class ExercicesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase, private file: File) {
     // we retrieve all courses
-    db.list('/courses').valueChanges().subscribe(courses => {
+    let url='/courses/'
+    db.list(url, ref => ref.orderByChild('rank')).valueChanges().subscribe(courses => {
       this.courses = courses
       // for every directory  we check if he was created since more than two days
       for (let i = 0; i < courses.length; i++) {

@@ -20,7 +20,7 @@
       <button ion-button color="secondary" round (click)="playSound(wordsearched)">Écouter de nouveau</button>
     </div>
   </ng-template>
-  <ion-input dir="rtl" type="text" placeholder="اكتب هنا ما سمعت..." [(ngModel)]="dictee" [disabled]="true"></ion-input>
+  <ion-textarea dir="rtl"  placeholder="اكتب هنا ما سمعت..." [(ngModel)]="dictee" [disabled]="true" rows="4" cols="25"></ion-textarea>
   <ion-grid dir="rtl">
     <ion-row>
       <ion-col col-28 *ngFor="let harf of letters"><button ion-button color="secondary" (click)="addLetter(harf)">{{harf.arabic}}</button></ion-col>

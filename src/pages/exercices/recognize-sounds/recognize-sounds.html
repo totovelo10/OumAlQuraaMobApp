@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Oral</ion-title>
+        <ion-title>
+            {{selectedCourse.title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="has-header">
+
+    <ion-card class="mycard">
+        <ion-card-content>
+            {{wordsearched.french | uppercase}}
+        </ion-card-content>
+    </ion-card>
+<br>
+<br>
+<br>
+<br>
+    <div class="buttonCenter"r>
+            <button ion-button color="secondary" round (click)="speak()">Exprimez vous en Arabe!  
+                    <ion-icon name="microphone" item-end class="iconic"></ion-icon>
+            </button>
+           
+        </div>
+   
+
+</ion-content>

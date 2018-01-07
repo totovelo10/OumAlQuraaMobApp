@@ -3,6 +3,7 @@ import { WordsService } from '../services/words.services'
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ResultsPage } from '../exercices/results/results';
 import { Word } from '../../interfaces/word';
+import { SentencesService } from '../services/sentences.services'
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage'
 import { ToastController } from 'ionic-angular';
@@ -17,7 +18,8 @@ export class ExoParentPage {
     nbQuestion: number
     selectedCourse: any;
     course_words: any[];
-    displayed_words: Word[];
+    course_sentences: any[];
+    displayed_words: any[];
     wordsearched: any;
     wordchoosen: any;
     note: number;
@@ -36,6 +38,7 @@ export class ExoParentPage {
         public navCtrl: NavController,
         public navParams: NavParams,
         protected wordsService: WordsService,
+        protected sentencesService: SentencesService,
         public loading: LoadingController,
         public toastCtrl: ToastController,
         @Inject(FirebaseApp) firebaseApp: any) {
@@ -43,7 +46,13 @@ export class ExoParentPage {
         this.eval = navParams.get('eval')
         // we retrive the selected course from the navigation parameters and the 
         this.selectedCourse = navParams.get('course');
-        this.wordsearched = {}// the wordsearched
+        this.course_words = navParams.get('course_words')
+        this.course_sentences = navParams.get('course_sentences')
+              // we retrive word of the selected course
+        this.course_words = this.course_words.concat(this.course_sentences)
+        console.log(this.course_words)
+        
+       // this.wordsearched = {}// the wordsearched
         this.note = 0;
         this.nbproposition = 0 // number of questions in the exo
         this.exWordsSearched = [];// this tab has the words that were chosen before
@@ -53,52 +62,60 @@ export class ExoParentPage {
         this.wordsearchedImageUrls = []
         this.wordsearchedImageUrl = ""
         this.storageRef = firebaseApp.storage().ref()
+
+        //this.maxWords = this.course_words.length;
     }
 
     //getWords of a Course
     getWords(selectedCourse): void {
         let tmp_displayed_words: any[];
         let tmp_wordsearched: any;
-        // we retrive word of the selected course
-        this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
-            this.course_words = words;
-            this.maxWords = words.length;
 
-            /*
-            we want to check if the future wordchoosen was chosen yet
-            then we pass the five words(five proposition in the question) and the wordchosen in temporary variables
-            for check because if we did not do thath the screen would be 
-            refreshed with bad words
-            */
-            tmp_displayed_words = this.getFiveWords(this.maxWords);// here we choose five words of the selected course
-            tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
-            for (let i = 0; i < this.exWordsSearched.length; i++) {
-                // console.log("exwordsearched: " + this.exWordsSearched[i].french)
+      
+        //this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
+        // this.course_words = words;
+
+
+        //this.sentencesService.getSentences(selectedCourse).valueChanges().subscribe(sentences => {
+        //this.course_sentences = sentences
+
+        /*
+        we want to check if the future wordchoosen was chosen yet
+        then we pass the five words(five proposition in the question) and the wordchosen in temporary variables
+        for check because if we did not do thath the screen would be 
+        refreshed with bad words
+        */
+        tmp_displayed_words = this.getFiveWords(this.course_words.length);// here we choose five words of the selected course
+        tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
+        //for (let i = 0; i < this.exWordsSearched.length; i++) {
+            // console.log("exwordsearched: " + this.exWordsSearched[i].french)
+        //}
+        //console.log("tmp_wordsearched: " + tmp_wordsearched.french)
+        // we check if the wordsearched chosen is not in the exwordsearched 
+        // if tmp_wordsearched is equivalent to one of the exwordssearched we choose again the five proposition and the wordchoosen
+        for (let i = 0; i < this.exWordsSearched.length; i++) {
+            if ((this.exWordsSearched[i].french == tmp_wordsearched.french) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
+                tmp_displayed_words = this.getFiveWords(this.course_words.length);
+                tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
+
+                i = -1;// because i++ comes after this line so we return to 0 in order to we recompare the words
             }
-            //console.log("tmp_wordsearched: " + tmp_wordsearched.french)
-            // we check if the wordsearched chosen is not in the exwordsearched 
-            // if tmp_wordsearched is equivalent to one of the exwordssearched we choose again the five proposition and the wordchoosen
-            for (let i = 0; i < this.exWordsSearched.length; i++) {
-                if ((this.exWordsSearched[i].french == tmp_wordsearched.french) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
-                    tmp_displayed_words = this.getFiveWords(this.maxWords);
-                    tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
 
-                    i = -1;// because i++ comes after this line so we return to 0 in order to we recompare the words
-                }
-
-            }
-            // when we exit the loop we have our really proposition to display and the wordsearched
-            this.displayed_words = tmp_displayed_words
-            this.wordsearched = tmp_wordsearched
-            let storageRefImage = this.storageRef.child(this.wordsearched.image);
-            storageRefImage.getDownloadURL().then(url => this.wordsearchedImageUrl = url)
-        });
+        }
+        // when we exit the loop we have our really proposition to display and the wordsearched
+        this.displayed_words = tmp_displayed_words
+        this.wordsearched = tmp_wordsearched
+        //let storageRefImage = this.storageRef.child(this.wordsearched.image);
+        //storageRefImage.getDownloadURL().then(url => this.wordsearchedImageUrl = url)
+        // })
+        //});
 
     }
 
 
 
     ngOnInit(): void {
+
         this.getWords(this.selectedCourse);
         // this.ionViewLoaded()
         console.log("wodch " + this.wordchoosen)
@@ -147,6 +164,7 @@ export class ExoParentPage {
             }
             else {
                 tabnumbers.push(nb) // the number is added and we will cannot add it again
+                console.log(this.course_words[nb])
                 tabwords[i] = this.course_words[nb] // the word corresponding to the nb is added and we will cannot add it again
             }
         }
@@ -167,23 +185,23 @@ export class ExoParentPage {
         let wrd: any
         nbr = this.getRandomNumber(tab.length) // the tab index is 0 1 2 3 4
         wrd = tab[nbr];
-
+        console.log(tab[nbr])
         return tab[nbr];
     }
-    
+
     presentToast() {
         let toast = this.toastCtrl.create({
-          message: 'Choisissez une réponse parmi les propositions',
-          duration: 3000,
-          position: 'bottom'
+            message: 'Choisissez une réponse parmi les propositions',
+            duration: 3000,
+            position: 'bottom'
         });
-    
+
         toast.onDidDismiss(() => {
-          console.log('Dismissed toast');
+            console.log('Dismissed toast');
         });
-    
+
         toast.present();
-      }
+    }
     validate() {
 
         if (this.wordchoosen == null) {
@@ -217,6 +235,8 @@ export class ExoParentPage {
                 this.navCtrl.push(ResultsPage, {
                     note: this.note,
                     course: this.selectedCourse,
+                    course_words:this.course_words,
+                    course_sentences:this.course_sentences,
                     exWordsSearched: this.exWordsSearched,
                     userChoices: this.userChoices,
                     displayedWords: this.exDisplayedWords,
@@ -230,7 +250,7 @@ export class ExoParentPage {
             }
             else {
                 this.wordchoosen = null
-                this.ngOnInit() 
+                this.ngOnInit()
             }// while the number of the question did not reached nbQuestion
             //else this.ionViewLoaded()
             // we continue the exo

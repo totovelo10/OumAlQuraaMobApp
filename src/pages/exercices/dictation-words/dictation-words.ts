@@ -1,6 +1,5 @@
 import { Component,Inject,ViewChild } from '@angular/core';
-import { Content } from 'ionic-angular';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform,Content } from 'ionic-angular';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { WordsService } from '../../services/words.services'
 import { Word } from '../../../interfaces/word';
@@ -24,6 +23,7 @@ export class DictationWordsPage {
   dictee: string;
   selectedCourse: any;
   course_words: any[];
+  course_sentences :any[]
   wordsearched: any;
   exWordsSearched: any[]
   answers: string[]
@@ -80,6 +80,8 @@ export class DictationWordsPage {
       { id: "32", arabic: "ؤ" },
       { id: "34", arabic: "ئ" },
       { id: "30", arabic: "لا" },
+      { id: "57", arabic: " " },
+      { id: "58", arabic: "<=" },
       { id: "35", arabic: "َ" },
       { id: "36", arabic: "ً" },
       { id: "37", arabic: "ُ" },
@@ -90,13 +92,17 @@ export class DictationWordsPage {
       { id: "53", arabic: "’" },
       { id: "54", arabic: "." },
       { id: "55", arabic: "؟" },
-      { id: "56", arabic: "!" },
-      { id: "57", arabic: " " },
-      { id: "58", arabic: "<=" }
+      { id: "56", arabic: "!" }
+     
     ]
 
     this.dictee = "";
     this.selectedCourse = navParams.get('course');
+    this.course_words = navParams.get('course_words')
+    this.course_sentences = navParams.get('course_sentences')
+    // we retrive word of the selected course
+    this.course_words = this.course_words.concat(this.course_sentences)
+    console.log(this.course_words)
     console.log(this.selectedCourse)
     this.wordsearched = {}
     this.exWordsSearched = [];// this tab has the words that were chosen before
@@ -132,9 +138,9 @@ export class DictationWordsPage {
     let tmp_displayed_words: any[];
     let tmp_wordsearched: any;
     // we retrive words of the selected course
-    this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
-      this.course_words = words;
-      this.maxWords = words.length;
+   // this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
+      
+      this.maxWords = this.course_words.length;
 
       //we retrive the sounds of all words of the course
      // for(let i=0; i <this.course_words.length;i++){
@@ -168,7 +174,7 @@ export class DictationWordsPage {
       this.displayed_words = tmp_displayed_words
       this.wordsearched = tmp_wordsearched
       
-    });
+   // });
 
   }
 
@@ -227,7 +233,7 @@ export class DictationWordsPage {
   }
   presentToast() {
     let toast = this.toastCtrl.create({
-      message: 'Choisissez une réponse parmi les propositions',
+      message: 'Vous n\'avez pas écrit de mots',
       duration: 3000,
       position: 'bottom'
     });
@@ -259,12 +265,12 @@ export class DictationWordsPage {
       this.nbproposition++
       if (this.nbproposition == nbQuestion) {
         this.navCtrl.push(ResultsPage, {
-          course_words:this.course_words,
           note: this.note,
           course: this.selectedCourse,
           exWordsSearched: this.exWordsSearched,
           userChoices: this.userChoices,
-        //  displayedWords: this.exDisplayedWords,
+          course_words:this.course_words,
+          course_sentences:this.course_sentences,
           answers: this.answers,
           soundWords:this.soundWords,
           nbproposition:nbQuestion,
@@ -288,7 +294,7 @@ export class DictationWordsPage {
       let sound = word.sound.replace(course, "")
       if (this.course_words[i].sound.includes(sound)) {
         this.platform.ready().then(() => {
-          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title+'/'+sound
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id+'/'+sound
           let file: MediaObject = this.media.create(filepath)
                  // fires when file status changes
                  file.onStatusUpdate.subscribe((status) => {

@@ -25,7 +25,7 @@ import { ExercicesCoursesPage } from '../pages/exercices/exercices-courses/exerc
 
 import { FrenchToArabicPage } from '../pages/exercices/french-to-arabic/french-to-arabic';
 import { ArabicToFrenchPage } from '../pages/exercices/arabic-to-french/arabic-to-french';
-
+import { RecognizeSoundsPage } from '../pages/exercices/recognize-sounds/recognize-sounds';
 import { ImageToArabicPage } from '../pages/exercices/image-to-arabic/image-to-arabic';
 import { SoundWordsToFrenchPage } from '../pages/exercices/sound-words-to-french/sound-words-to-french';
 //import { FillGapsPage } from '../pages/exercices/fillgaps/fillgaps';
@@ -50,6 +50,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { IonicStorageModule } from '@ionic/storage';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import 'firebase/database';
 import 'firebase/app';
 import 'firebase/storage'
@@ -81,6 +82,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     NewPassPage,
     ProgressionPage,
     EvaluationPage,
+    RecognizeSoundsPage
     
     
   ],
@@ -120,7 +122,8 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     SignupPage,
     NewPassPage,
     ProgressionPage,
-    EvaluationPage
+    EvaluationPage,
+    RecognizeSoundsPage
     
   ],
   providers: [
@@ -129,6 +132,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     NativeAudio,
     Media, 
     File,
+    SpeechRecognition,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

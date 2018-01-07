@@ -3,6 +3,7 @@ import { WordsService } from '../../services/words.services'
 import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
 import { Word } from '../../../interfaces/word';
+import { SentencesService } from '../../services/sentences.services'
 import { FirebaseApp } from 'angularfire2';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { File } from '@ionic-native/file';
@@ -12,13 +13,14 @@ import { ToastController } from 'ionic-angular';
 @Component({
   selector: 'sound-words-to-french',
   templateUrl: 'sound-words-to-french.html',
-  providers: [WordsService],
+  providers: [WordsService,SentencesService],
 })
 export class SoundWordsToFrenchPage {
 
 
   selectedCourse: any;
   course_words: any[];
+  course_sentences: any[];
   displayed_words: Word[];
   wordsearched: any;
   wordchoosen: any;
@@ -37,7 +39,7 @@ export class SoundWordsToFrenchPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private wordsService: WordsService,
-    //@Inject(FirebaseApp) firebaseApp: any,
+    protected sentencesService: SentencesService,
     private nativeAudio: NativeAudio,
     private file: File,
     public platform: Platform,
@@ -47,6 +49,9 @@ export class SoundWordsToFrenchPage {
 
     // we retrive the selected course from the navigation parameters
     this.selectedCourse = navParams.get('course');
+    this.course_words = navParams.get('course_words')
+    this.course_sentences = navParams.get('course_sentences')
+    this.course_words = this.course_words.concat(this.course_sentences)
     this.wordsearched = {}
     this.note = 0;
     this.nbproposition = 0
@@ -67,9 +72,13 @@ export class SoundWordsToFrenchPage {
     let tmp_displayed_words: any[];
     let tmp_wordsearched: any;
     // we retrive words of the selected course
-    this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
+    /*this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
       this.course_words = words;
       this.maxWords = words.length;
+      this.sentencesService.getSentences(selectedCourse).valueChanges().subscribe(sentences => {
+        this.course_sentences = sentences
+        this.course_words = this.course_words.concat(this.course_sentences)
+        console.log(this.course_words)*/
 
       /*we retrive the sounds of all words
       for (let i = 0; i < this.course_words.length; i++) {
@@ -87,7 +96,7 @@ export class SoundWordsToFrenchPage {
       for check because if we did not do that the screen would be 
       refreshed with bad words
       */
-      tmp_displayed_words = this.getFiveWords(this.maxWords);// here we choose five words of the selected course
+      tmp_displayed_words = this.getFiveWords( this.course_words.length);// here we choose five words of the selected course
       tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
       for (let i = 0; i < this.exWordsSearched.length; i++) {
         console.log("exwordsearched: " + this.exWordsSearched[i].arabic)
@@ -96,7 +105,7 @@ export class SoundWordsToFrenchPage {
       // we check if the wordsearched chosen is not in the exwordsearched 
       for (let i = 0; i < this.exWordsSearched.length; i++) {
         if ((this.exWordsSearched[i].arabic == tmp_wordsearched.arabic) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
-          tmp_displayed_words = this.getFiveWords(this.maxWords);
+          tmp_displayed_words = this.getFiveWords( this.course_words.length);
           tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
 
           i = -1;// because i++ comes after this line
@@ -106,8 +115,8 @@ export class SoundWordsToFrenchPage {
       }
       this.displayed_words = tmp_displayed_words
       this.wordsearched = tmp_wordsearched
-
-    });
+   /* })
+    });*/
 
   }
 
@@ -213,6 +222,7 @@ export class SoundWordsToFrenchPage {
           userChoices: this.userChoices,
           displayedWords: this.exDisplayedWords,
           course_words:this.course_words,
+          course_sentences:this.course_sentences,
           answers: this.answers,
           nbproposition:nbQuestion,
           whoami: this.whoami
@@ -229,12 +239,12 @@ export class SoundWordsToFrenchPage {
 
   playSound(word) {
     for (let i = 0; i < this.course_words.length; i++) {
-      console.log(this.course_words[i])
+     
       let course = this.selectedCourse.id + "/"
       let sound = word.sound.replace(course, "")
       if (this.course_words[i].sound.includes(sound)) {
         this.platform.ready().then(() => {
-          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title+'/'+sound
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id+'/'+sound
           let file: MediaObject = this.media.create(filepath)
                  // fires when file status changes
                  file.onStatusUpdate.subscribe((status) => {

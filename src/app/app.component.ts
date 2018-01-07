@@ -40,7 +40,7 @@ export class MyApp {
       { title: 'Cours', component: CoursesPage },
       { title: 'Exercices', component: ExercicesPage },
       { title: 'Progression',component: ProgressionPage},
-      { title: 'Evaluation',component: EvaluationPage},
+     // { title: 'Evaluation',component: EvaluationPage},
       { title: 'Se déconnecter', component: AuthentificationPage }
      
     ];

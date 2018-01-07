@@ -80,7 +80,7 @@ export class CorrectionSoundWordsToFrenchPage {
       let sound = word.sound.replace(course, "")
       if (this.course_words[i].sound.includes(sound)) {
         this.platform.ready().then(() => {
-          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title + '/' + sound
+          let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id + '/' + sound
           let file: MediaObject = this.media.create(filepath)
                   // fires when file status changes
                   file.onStatusUpdate.subscribe((status) => {

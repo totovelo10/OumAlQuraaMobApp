@@ -47,6 +47,7 @@ export class ResultsPage {
   resultId:any
   nbGa:number
   nbproposition:number
+  course_sentences: any[];
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
@@ -68,6 +69,8 @@ export class ResultsPage {
     this.consigne = navParams.get('consigne')
     this.whichPage = navParams.get('whoami')
     this.nbproposition = navParams.get('nbproposition')
+    this.course_words = navParams.get('course_words')
+    this.course_sentences = navParams.get('course_sentences')
     switch (this.whichPage) {
       case "frenchtoarabic": this.correctionPage = CorrectionFrenchToArabicPage; this.exoPage = FrenchToArabicPage; break;
       case "arabictofrench": this.correctionPage = CorrectionArabicToFrenchPage; this.exoPage = ArabicToFrenchPage; break;
@@ -156,7 +159,8 @@ export class ResultsPage {
   }
 
   repeatExo() {
-    this.navCtrl.setRoot(this.exoPage, { course: this.selectedCourse })
+    this.navCtrl.setRoot(this.exoPage, { course: this.selectedCourse,course_words:this.course_words,
+      course_sentences:this.course_sentences })
     //this.navCtrl.push(this.exoPage, { course: this.selectedCourse })
   }
 

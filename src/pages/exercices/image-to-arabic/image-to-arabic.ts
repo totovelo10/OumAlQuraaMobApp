@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject,ViewChild } from '@angular/core';
 import { ExoParentPage } from '../exo-parent';
 import { WordsService } from '../../services/words.services'
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController,Content } from 'ionic-angular';
 import { ResultsPage } from '../results/results';
 import { Word } from '../../../interfaces/word';
 import { File } from '@ionic-native/file';
@@ -15,7 +15,7 @@ import { ToastController } from 'ionic-angular';
 })
 
 export class ImageToArabicPage {
-
+  @ViewChild(Content) content: Content;
 
   selectedCourse: any;
   course_words: any[];
@@ -43,6 +43,7 @@ export class ImageToArabicPage {
 
     // we retrive the selected course from the navigation parameters
     this.selectedCourse = navParams.get('course');
+    this.course_words =navParams.get('course_words')
     this.wordsearched = { arabic: "", french: "", image: "", sound: "" }
     this.note = 0;
     this.nbproposition = 0
@@ -61,9 +62,9 @@ export class ImageToArabicPage {
     let tmp_displayed_words: any[];
     let tmp_wordsearched: any;
     // we retrive word of the selected course
-    this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
-      this.course_words = words;
-      this.maxWords = words.length;
+   // this.wordsService.getWords(selectedCourse).valueChanges().subscribe(words => {
+      //this.course_words = words;
+      this.maxWords = this.course_words.length;
 
       /*
       we want to check if the future wordchoosen was chosen yet
@@ -74,24 +75,36 @@ export class ImageToArabicPage {
       tmp_displayed_words = this.getFiveWords(this.maxWords);// here we choose five words of the selected course
       tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)// here we chose a word between the five
       for (let i = 0; i < this.exWordsSearched.length; i++) {
+
         console.log("exwordsearched: " + this.exWordsSearched[i].french)
+
       }
       console.log("tmp_wordsearched: " + tmp_wordsearched.french)
-      // we check if the wordsearched chosen is not in the exwordsearched 
+      console.log("tmp_wordsearchedimg: " + tmp_wordsearched.image)
+      //we check if worksearched has an image
+      while (tmp_wordsearched.image==""){
+        tmp_displayed_words = this.getFiveWords(this.maxWords);
+        tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
+        console.log("tmp_wordsearched: " + tmp_wordsearched.french)
+        console.log("tmp_wordsearchedimg: " + tmp_wordsearched.image)
+      }
+      // we check if the wordsearched chosen is not in the exwordsearched  and we check if worksearched has an image
       for (let i = 0; i < this.exWordsSearched.length; i++) {
-        if ((this.exWordsSearched[i].french == tmp_wordsearched.french) && (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic)) {
+        if ((tmp_wordsearched.image=="")||((this.exWordsSearched[i].french == tmp_wordsearched.french) && 
+        (this.exWordsSearched[i].arabic == tmp_wordsearched.arabic))) {
+          
           tmp_displayed_words = this.getFiveWords(this.maxWords);
           tmp_wordsearched = this.getSearchedWord(tmp_displayed_words)
 
           i = -1;// because i++ comes after this line
         }
-
+        
       }
       this.displayed_words = tmp_displayed_words
       this.wordsearched = tmp_wordsearched
       let course_fold = this.selectedCourse.id + "/" + "images"
       let img = this.wordsearched.image.replace(course_fold, "")
-      let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.title + '/' + img
+      let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id + '/' + img
       console.log(filepath)
       this.wordsearchedImageUrl = filepath
 
@@ -99,13 +112,14 @@ export class ImageToArabicPage {
    
       storageRefImage.getDownloadURL().then(url => this.wordsearchedImageUrl=url)*/
 
-    });
+  //  });
 
   }
 
 
 
   ngOnInit(): void {
+    this.content.scrollToTop();
     this.getWords(this.selectedCourse);
     console.log("wodch " + this.wordchoosen)
 
@@ -206,6 +220,7 @@ export class ImageToArabicPage {
           displayedWords: this.exDisplayedWords,
           answers: this.answers,
           nbproposition: nbQuestion,
+          course_words:this.course_words,
           wordsearchedImageUrls: this.wordsearchedImageUrls,
           whoami: this.whoami
         });

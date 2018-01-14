@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "252599887617",
+    "firebase_url": "https://oumalquraamobapp.firebaseio.com",
+    "project_id": "oumalquraamobapp",
+    "storage_bucket": "oumalquraamobapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252599887617:android:3d7baf101a455b69",
+        "android_client_info": {
+          "package_name": "com.ceo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252599887617-ndqcg6forles7to42cmlmn95sric07s1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcBOflI-EbuJzFdSf5bpgxexbCf3dxWAE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252599887617:android:1f53947bb2d77072",
+        "android_client_info": {
+          "package_name": "ceo.app.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252599887617-ndqcg6forles7to42cmlmn95sric07s1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcBOflI-EbuJzFdSf5bpgxexbCf3dxWAE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

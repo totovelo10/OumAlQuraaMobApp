@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { File} from '@ionic-native/file';
-import { NavController, NavParams } from 'ionic-angular';
+import { File } from '@ionic-native/file';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { ExercicesCoursesPage } from '../exercices/exercices-courses/exercices-courses';
 import { Observable } from 'rxjs/Observable';
+import { AdMobPro } from '@ionic-native/admob-pro';
+
 @Component({
   selector: 'exercices',
   templateUrl: 'exercices.html'
@@ -11,9 +13,17 @@ import { Observable } from 'rxjs/Observable';
 export class ExercicesPage {
   courses: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase, private file: File) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    db: AngularFireDatabase,
+    private file: File,
+    public admob: AdMobPro,
+    private platform: Platform) {
+
+      this.launchInterstitial()
+      
     // we retrieve all courses
-    let url='/courses/'
+    let url = '/courses/'
     db.list(url, ref => ref.orderByChild('rank')).valueChanges().subscribe(courses => {
       this.courses = courses
       // for every directory  we check if he was created since more than two days
@@ -54,11 +64,34 @@ export class ExercicesPage {
 
 
   courseSelected(course: String) {
+
     this.navCtrl.push(ExercicesCoursesPage, {
       course: course,
       hideback: false
 
     });
   }
+
+  launchInterstitial() {
+    console.log("hfdkhfk")
+    let adId;
+    if (this.platform.is('android')) {
+      console.log('android')
+      //adId = 'ca-app-pub-4224089839636849~7332813318';
+      adId = 'ca-app-pub-4224089839636849/47761000208';
+    }
+    // preppare and load ad resource in background, e.g. at begining of game level
+    if (this.admob) {
+      console.log("go!")
+      this.admob.prepareInterstitial({ adId: adId.exos, autoShow: true });
+
+      // show the interstitial later, e.g. at end of game level
+      //if(this.admob) this.admob.showInterstitial();
+    }
+  }
+
+
+
+
 
 }

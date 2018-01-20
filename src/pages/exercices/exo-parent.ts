@@ -7,6 +7,7 @@ import { SentencesService } from '../services/sentences.services'
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage'
 import { ToastController } from 'ionic-angular';
+
 @Component({
     selector: 'exo-parent',
     template: 'wait...',
@@ -35,6 +36,7 @@ export class ExoParentPage {
     whoami: string;
     eval: boolean
     constructor(
+       
         public navCtrl: NavController,
         public navParams: NavParams,
         protected wordsService: WordsService,
@@ -264,6 +266,7 @@ export class ExoParentPage {
             array.splice(index, 1);
         }
     }
+   
 
 }
 

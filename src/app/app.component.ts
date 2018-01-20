@@ -11,8 +11,10 @@ import { ProgressionPage} from '../pages/progression/progression';
 import { EvaluationPage} from '../pages/evaluation/evaluation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FCM } from '@ionic-native/fcm';
 import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { storage } from 'firebase';
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +32,9 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public alertCtrl: AlertController,
     private file: File,
-    private storage: Storage
+    private storage: Storage,
+    public push: Push, 
+    private fcm: FCM
   ) {
     this.initializeApp();
 
@@ -47,6 +51,20 @@ export class MyApp {
   }
 
   initializeApp() {
+    
+    /*this.fcm.onNotification().subscribe(data=>{
+      if(data.wasTapped){
+        console.log("Received in background");
+        alert(JSON.stringify(data) )
+        console.log(data)
+      } else {
+       console.log("Received in foreground");
+        data.wasTapped=true
+        if(data.wasTapped)
+        alert(JSON.stringify(data))
+        
+      };
+    })*/
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -54,7 +72,8 @@ export class MyApp {
       setTimeout(() => {
         this.splashScreen.hide();
       }, 100);
-
+     
+      this.pushsetup();
       /*this.platform.registerBackButtonAction(() => {
         if(this.nav.canGoBack()){
           this.nav.pop();
@@ -67,13 +86,57 @@ export class MyApp {
    
     });
 
-   
+ 
  
   }
 
   
+  pushsetup() {
+    const options: PushOptions = {
+     android: {
+         senderID: '252599887617',
+         iconColor: "green"
+     },
+     ios: {
+         alert: 'true',
+         badge: true,
+         sound: 'false'
+     },
+     windows: {}
+  };
+  const pushObject: PushObject = this.push.init(options);
+ 
+  pushObject.on('notification').subscribe((notification: any) => {
+    if (notification.additionalData.foreground) {
+      console.log("noti "+ notification)
+      let youralert = this.alertCtrl.create({
+        title:notification.title,
+        message: notification.message,
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            handler: () => {
+              youralert =null;
+            }
+          }],
+          //cssClass:'customLoader'
+        
+      });
+      youralert.present();
+    }
+  });
+ 
+  pushObject.on('registration').subscribe((registration: any) => {
+   // alert(registration.registrationId);
+  });
+ 
+  pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
+  }
+
 
   openPage(page) {
+  
     // close the menu when clicking a link from the menu
     this.menu.close();
     console.log(page)

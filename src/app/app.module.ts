@@ -17,7 +17,7 @@ import { CourseDetailsPage } from '../pages/course-details/course-details';
 // import authentification and signup page
 import { AuthentificationPage } from '../pages/authentification/authentification';
 import { SignupPage } from '../pages/signup/signup';
-import { NewPassPage } from '../pages/newpass/newpass';
+import { NewpassPage } from '../pages/newpass/newpass';
 // import exercices pages
 
 import { ExercicesPage } from '../pages/exercices/exercices';
@@ -49,12 +49,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { FCM } from '@ionic-native/fcm';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { IonicStorageModule } from '@ionic/storage';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
+import { AdMobPro } from '@ionic-native/admob-pro';
 import 'firebase/database';
 import 'firebase/app';
 import 'firebase/storage'
 import { firebaseConfig } from '../environments/firebaseconfig';
+
 
 @NgModule({
   declarations: [
@@ -79,7 +83,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionDictationWordsPage,
     CorrectionCorrectSentencesPage,
     SignupPage,
-    NewPassPage,
+    NewpassPage,
     ProgressionPage,
     EvaluationPage,
     RecognizeSoundsPage
@@ -120,7 +124,7 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     CorrectionDictationWordsPage,
     CorrectionCorrectSentencesPage,
     SignupPage,
-    NewPassPage,
+    NewpassPage,
     ProgressionPage,
     EvaluationPage,
     RecognizeSoundsPage
@@ -133,7 +137,11 @@ import { firebaseConfig } from '../environments/firebaseconfig';
     Media, 
     File,
     SpeechRecognition,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    FCM,
+    Push,
+    AdMobPro,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    
   ]
 })
 export class AppModule {}

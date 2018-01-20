@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { CoursesPage } from '../../pages/courses/courses';
-import { NewPassPage } from '../newpass/newpass';
+import { NewpassPage } from '../newpass/newpass';
 import { NavController, NavParams, MenuController, Content } from 'ionic-angular';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { UsersService } from '../services/users.services';
@@ -58,7 +58,7 @@ export class AuthentificationPage {
 
     }
     goToNewPass() {
-        this.navCtrl.push(NewPassPage)
+        this.navCtrl.push(NewpassPage)
     }
     login() {
         //let mdp= Md5.hashStr(this.pass).toString();

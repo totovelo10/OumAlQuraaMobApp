@@ -14,45 +14,66 @@
         </ion-card-content>
     </ion-card-->
     <ion-card-header dir="rtl" class="titleCard">
-            الكلمات الجديدة
-        </ion-card-header>
-    <ion-card [virtualScroll]="course_words" >
-       
+        الكلمات الجديدة
+    </ion-card-header>
+    <ion-card [virtualScroll]="course_words">
+
         <ion-list>
 
             <!--ion-item  *virtualItem="let word" (click)="play(word)"-->
-            <button dir="rtl" ion-item text-wrap *virtualItem="let word" (click)="play(word)">
+            <button dir="rtl" ion-item text-wrap *virtualItem="let word" (click)="play(word,course_words)">
                 <ion-icon name="volume-up" item-end class="iconic"></ion-icon>
                 {{word.arabic}} : {{word.french}}
-              
+
             </button>
-            
+
             <!--/ion-item-->
 
         </ion-list>
     </ion-card>
-    <!--ion-card>
-        <ion-card-header class="titleCard" dir="rtl">
-            القواعد
-        </ion-card-header>
-        <div class="rulesCourse" [innerHTML]="selectedItem.rules"></div>
-    </ion-card-->
 
-    <ion-card-header dir="rtl" class="titleCard">
-            الجمل الجديدة
+    <ion-card-header *ngIf="selectedItem.sentence;" dir="rtl" class="titleCard">
+        الجمل الجديدة
     </ion-card-header>
     <ion-card>
-        
+
         <ion-list [virtualScroll]="course_sentences" approxItemHeight="10px">
 
             <!--ion-item  *virtualItem="let word" (click)="play(word)"-->
             <button dir="rtl" ion-item text-wrap *virtualItem="let sentence" (click)="playsentence(sentence)">
                 <ion-icon name="volume-up" item-end class="iconic"></ion-icon>
                 {{sentence.arabic}} : {{sentence.french}}
-                
+
             </button>
-            
+
             <!--/ion-item-->
+        </ion-list>
+    </ion-card>
+    <ion-card-header *ngIf="selectedItem.ruleon" class="titleCard" dir="rtl">
+        القواعد
+    </ion-card-header>
+    <ion-card text-center>
+
+        <div class="rulesCourse" [innerHTML]="selectedItem.rules"></div>
+    </ion-card>
+
+
+    <ion-card-header class="titleCard" dir="rtl" *ngIf="selectedItem.gramon">
+        الكلمات النحوية
+    </ion-card-header>
+    <ion-card [virtualScroll]="course_gmwords">
+
+        <ion-list>
+
+            <!--ion-item  *virtualItem="let word" (click)="play(word)"-->
+            <button dir="rtl" ion-item text-wrap *virtualItem="let word" (click)="play(word,course_gmwords)">
+                <ion-icon name="volume-up" item-end class="iconic"></ion-icon>
+                {{word.arabic}} : {{word.french}}
+
+            </button>
+
+            <!--/ion-item-->
+
         </ion-list>
     </ion-card>
 

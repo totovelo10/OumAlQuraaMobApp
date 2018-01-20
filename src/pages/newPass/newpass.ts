@@ -6,7 +6,7 @@ import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
     selector: 'newpass',
     templateUrl: 'newpass.html'
   })
-  export class NewPassPage {
+  export class NewpassPage {
 
     email:string
     emailsent:boolean

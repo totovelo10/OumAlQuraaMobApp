@@ -103,7 +103,9 @@ export class ImageToArabicPage {
       this.displayed_words = tmp_displayed_words
       this.wordsearched = tmp_wordsearched
       let course_fold = this.selectedCourse.id + "/" + "images"
-      let img = this.wordsearched.image.replace(course_fold, "")
+      let reg = new RegExp('.*\/')
+      let img = this.wordsearched.image.replace(reg, "")
+      
       let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id + '/' + img
       console.log(filepath)
       this.wordsearchedImageUrl = filepath

@@ -35,21 +35,24 @@ export class CoursesPage {
       console.log(cours)
     
       this.courses = cours
-
+      
 
 
       // for every directory  we check if he was created since more than two days
       for (let i = 0; i < cours.length; i++) {
-
-        let fileUrl = this.file.externalDataDirectory + "/" + this.courses[i].title
-
+        
+        let fileUrl = this.file.externalDataDirectory + "/" + this.courses[i].id
+        console.log(fileUrl)
         this.file.resolveLocalFilesystemUrl(fileUrl).then(
           (file) => {
+            console.log(file)
             file.getMetadata(
-              (meta) => this.success(meta, this.file.externalDataDirectory, this.courses[i].title), error => console.log(error))
+              (meta) => this.success(meta, this.file.externalDataDirectory, this.courses[i].id), error => console.log(error))
           }
 
-        )
+        ).catch(error =>{
+          console.log(error)
+        })
       }
       //file.file(meta => console.log(meta), error => console.log(error));
     });
@@ -66,8 +69,9 @@ export class CoursesPage {
     console.log("Last Modified: " + metadata.modificationTime);
     let fin = Date.now()
 
-    let delta = fin - metadata.modificationTime
 
+    let delta = fin - metadata.modificationTime
+    console.log("hdfjhdjfhdjhfjdfhjdhfjdhfjhfhj")
     console.log(delta)
     // if the files were created more than 2 days ago we delete it
     if (delta > 86400000) {

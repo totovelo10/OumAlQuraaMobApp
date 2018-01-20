@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class WordsService{
      course_words:AngularFireList<any[]>
+     grammar_words:AngularFireList<any[]>
      course_gaps_sentences:Observable<any[]>
      db:AngularFireDatabase 
      ref:any
@@ -23,6 +24,15 @@ export class WordsService{
     this.course_words = this.db.list(url, ref => ref.orderByChild(course.id).equalTo(true))
       
       return this.course_words;
+  }
+
+  getGrammarWords(course:any): AngularFireList<Word[]> {
+    let url='/grammarwords/'
+    let ref = firebase.database().ref
+       // we select the worsds that have the course to true in the bdd
+    this.grammar_words = this.db.list(url, ref => ref.orderByChild(course.id).equalTo(true))
+      
+      return this.grammar_words;
   }
 
 

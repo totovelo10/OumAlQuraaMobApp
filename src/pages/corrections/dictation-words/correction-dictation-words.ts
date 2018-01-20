@@ -76,8 +76,14 @@ export class CorrectionDictationWordsPage {
   playSound(word) {
     for (let i = 0; i < this.course_words.length; i++) {
       console.log(this.course_words[i])
+      let sound=""
       let course = this.selectedCourse.id + "/"
-      let sound = word.sound.replace(course, "")
+      if(this.selectedCourse.revision==true){ 
+        let reg = new RegExp('.*\/')
+        sound = word.sound.replace(reg, "")
+      console.log(sound)}
+      else {sound = word.sound.replace(course, "")}
+      
       if (this.course_words[i].sound.includes(sound)) {
         this.platform.ready().then(() => {
           let filepath = this.file.externalDataDirectory + '/' + this.selectedCourse.id + '/' + sound

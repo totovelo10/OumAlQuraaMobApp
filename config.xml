@@ -78,10 +78,12 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <allow-navigation href="http://192.168.0.50:8100" />
     <allow-navigation href="http://192.168.0.2:8101" />
-    <engine name="android" spec="^6.3.0" />
+    <allow-navigation href="http://192.168.0.17:8101" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
@@ -91,5 +93,12 @@
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
-    <allow-navigation href="http://192.168.0.17:8101" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.2">
+        <variable name="SENDER_ID" value="252599887617" />
+    </plugin>
+    <plugin name="cordova-plugin-media" spec="^3.0.1" />
+    <plugin name="cordova-plugin-admob-free" spec="^0.13.0" />
+    <plugin name="cordova-plugin-admobpro" spec="^2.30.1" />
+    <engine name="browser" spec="5.0.3" />
+    <engine name="android" spec="^7.0.0" />
 </widget>

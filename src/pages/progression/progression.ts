@@ -22,6 +22,7 @@ export class ProgressionPage {
     linearDataSoundFrench: Array<any>
     linearDataDictation: Array<any>
     linearDataCorrectsentences: Array<any>
+    doughnutData: Array<any>
     lineChart: any;
     labelsArabicFrench :Array<any>
     labelsFrenchArabic :Array<any>
@@ -40,6 +41,8 @@ export class ProgressionPage {
     nbQuestionGeneral: number
     nbGeneral: number
     percentGeneral: number
+    percentNbgaGeneral : number
+    percentNbfaGeneral : number
     nbArabicToFrenchGeneral: number
     percentArabicToFrenchGeneral: number
     nbFrenchToArabicGeneral: number
@@ -55,6 +58,7 @@ export class ProgressionPage {
     percentCorrectSentencesGeneral: number
 
 //@ViewChild('lineCanvas') lineCanvas;
+   
     @ViewChild('doughnutCanvas') doughnutCanvas;
     @ViewChild('lineArabicFrench') lineArabicFrench;
     @ViewChild('lineFrenchArabic') lineFrenchArabic;
@@ -69,6 +73,7 @@ export class ProgressionPage {
         private storage: Storage) {
         this.user = { id: "", email: "", firstname: "", lastname: "", kunya: "", currentunit: "" }
         this.barData = []
+        this.doughnutData =[]
         this.linearDataArabicFrench = []
         this.linearDataFrenchArabic = []
         this.linearDataImageArabic= []
@@ -89,6 +94,7 @@ export class ProgressionPage {
         this.nbDictationGeneral = 0
         this.nbImageGeneral = 0
         this.nbQuestionGeneral = 0
+        this.nbgaGeneral= 0
         this.storage.get('user').then((user) => {
             if (user !== null) {
                 this.user = user
@@ -102,6 +108,8 @@ export class ProgressionPage {
                             let options = { month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"};
                             let datestr = date.toLocaleString("fr-FR",options).toString()
                             this.nbgaGeneral = this.nbgaGeneral + element.nbga
+                            console.log(this.nbgaGeneral)
+                            
                             this.nbQuestionGeneral = this.nbQuestionGeneral + element.nbQuestion
 
                             if (element.exo == 'arabictofrench') {
@@ -153,12 +161,20 @@ export class ProgressionPage {
                         this.percentDictationGeneral = Math.round(this.nbDictationGeneral / this.nbQuestionGeneral * 100)
                         this.percentCorrectSentencesGeneral = Math.round(this.nbCorrectSentencesGeneral / this.nbQuestionGeneral * 100)
                         this.percentAudioGeneral = Math.round(this.nbAudioGeneral / this.nbQuestionGeneral * 100)
+                        this.percentNbgaGeneral = Math.round(this.nbgaGeneral * 100/ this.nbQuestionGeneral )
+                        this.doughnutData.push(this.percentNbgaGeneral)
+                        this.percentNbfaGeneral = Math.round(( this.nbQuestionGeneral-this.nbgaGeneral) * 100/ this.nbQuestionGeneral)
+                        this.doughnutData.push(this.percentNbfaGeneral)
+                        this.doughnutChart.update()
                         console.log(this.nbArabicToFrenchGeneral)
                         console.log(this.nbFrenchToArabicGeneral)
                         console.log(this.nbDictationGeneral)
                         console.log(this.nbImageGeneral)
                         console.log(this.nbCorrectSentencesGeneral)
                         console.log(this.nbAudioGeneral)
+                        console.log("fdfdf"+this.nbgaGeneral)
+                        console.log("pourcentage bonne reponse "+this.percentNbgaGeneral)
+                        console.log("pourcentage mauvaise reponse"+this.percentNbfaGeneral)
                         this.arabicfrenchChart = new Chart(this.lineArabicFrench.nativeElement,
                             {
                                 type: 'line',
@@ -277,40 +293,10 @@ export class ProgressionPage {
                                                         ]
                                                     } 
                                                 });
-                       /*
-                        this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 
-                            type: 'pie',
-                            data: {
-                                labels: ["AR-FR", "FR-AR", "Image-AR", "Dictee", "Correction Phrases", "Audio"],
-                                datasets: [{
-                                    label: '# of Exercices',
-                                    data: [this.nbArabicToFrenchGeneral,
-                                    this.nbFrenchToArabicGeneral,
-                                    this.nbImageGeneral,
-                                    this.nbDictationGeneral,
-                                    this.nbCorrectSentencesGeneral,
-                                    this.nbAudioGeneral],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)'
-                                    ],
-                                    hoverBackgroundColor: [
-                                        "#FF6384",
-                                        "#36A2EB",
-                                        "#FFCE56",
-                                        "#FF6384",
-                                        "#36A2EB",
-                                        "#FFCE56"
-                                    ]
-                                }]
-                            }
-
-                        });*/
+                                                
+                       
+                        
                     }
                 )
             }
@@ -322,16 +308,35 @@ export class ProgressionPage {
     ionViewDidEnter(): void {
 
         this.content.resize()
-
+      
 
     }
 
     ionViewDidLoad() {
-    
-       
+        this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 
+            type: 'doughnut',
+            data: {
+                labels: ["Bonnes réponses","Mauvaises réponses"],
+                datasets: [
+                    {
+                    label: '# of Exercices',
+                    data: this.doughnutData,
+                    backgroundColor: [
+                        "MediumSeaGreen","tomato"      
+                    ],
+                    hoverBackgroundColor: [
+                        "#00b33c",
+                        "#e62e00"
+                    ]
+                }]
+            }
+
+        });
        
-                
+console.log(this.percentNbfaGeneral+"gdfdf")
+       
+        
             
         /*this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 

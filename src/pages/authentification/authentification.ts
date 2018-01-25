@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { CoursesPage } from '../../pages/courses/courses';
 import { NewpassPage } from '../newpass/newpass';
-import { NavController, NavParams, MenuController, Content } from 'ionic-angular';
+import { NavController, NavParams, MenuController, Content,Platform } from 'ionic-angular';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { UsersService } from '../services/users.services';
 import { User } from '../../interfaces/user'
@@ -29,6 +29,7 @@ export class AuthentificationPage {
         public menu: MenuController,
         public afAuth: AngularFireAuth,
         private usersServices: UsersService,
+        public platform: Platform,
         private storage: Storage) {
         this.menu.enable(false)
         this.email = "";
@@ -43,6 +44,17 @@ export class AuthentificationPage {
             this.pass=val
             this.login()
           })
+
+          this.platform.ready().then(() => {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+      
+            this.platform.registerBackButtonAction(() => {
+      
+              //this.navCtrl.popToRoot();
+              this.navCtrl.setRoot(AuthentificationPage)
+            });
+          });
     }
 
     ionViewDidEnter(): void {

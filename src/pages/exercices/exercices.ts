@@ -73,21 +73,29 @@ export class ExercicesPage {
   }
 
   launchInterstitial() {
-    console.log("hfdkhfk")
+      console.log("hfdkhfk")
     let adId;
     if (this.platform.is('android')) {
       console.log('android')
       //adId = 'ca-app-pub-4224089839636849~7332813318';
-      adId = 'ca-app-pub-4224089839636849/47761000208';
+      adId = 'ca-app-pub-4224089839636849/1765090585';
     }
-    // preppare and load ad resource in background, e.g. at begining of game level
+    // prepare and load ad resource in background, e.g. at begining of game level
     if (this.admob) {
       console.log("go!")
-      this.admob.prepareInterstitial({ adId: adId.exos, autoShow: true });
+      this.admob.prepareInterstitial({ adId: adId, isTesting: false, autoShow: true });
 
       // show the interstitial later, e.g. at end of game level
-      //if(this.admob) this.admob.showInterstitial();
-    }
+      if(this.admob) this.admob.showInterstitial();
+    }  
+
+
+ 
+
+
+
+
+
   }
 
 

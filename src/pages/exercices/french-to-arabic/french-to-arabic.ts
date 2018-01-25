@@ -42,12 +42,15 @@ export class FrenchToArabicPage {
     this.selectedCourse = navParams.get('course');
     this.course_words = navParams.get('course_words')
     this.course_sentences = navParams.get('course_sentences')
-    // we retrive word of the selected course
-    this.course_words = this.course_words.concat(this.course_sentences)
-    console.log(this.course_words)
+    
+    
     this.wordsearched = {}
     this.note = 0;
     this.nbproposition = 0
+    if(this.nbproposition==0)
+    // we retrive word and sentences of the selected course
+    this.course_words = this.course_words.concat(this.course_sentences)
+    console.log(this.course_words)
     this.exWordsSearched = [];// this tab has the words that were chosen before
     this.userChoices = [];
     this.exDisplayedWords = []

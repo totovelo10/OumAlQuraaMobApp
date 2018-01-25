@@ -6,7 +6,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 // import angularfire modules
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
+import {  AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import {ExoParentPage} from '../pages/exercices/exo-parent'
 import { CoursesPage } from '../pages/courses/courses';
@@ -50,7 +50,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FCM } from '@ionic-native/fcm';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Push } from '@ionic-native/push';
 import { IonicStorageModule } from '@ionic/storage';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { AdMobPro } from '@ionic-native/admob-pro';

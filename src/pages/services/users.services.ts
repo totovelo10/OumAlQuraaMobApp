@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ExoParentPage } from '../exercices/exo-parent';
-import {AngularFireDatabase,AngularFireList} from 'angularfire2/database';
+
+import {AngularFireDatabase} from 'angularfire2/database';
 import { Observable} from 'rxjs/Observable';
-import { User } from '../../interfaces/user';
 import * as firebase from 'firebase';
 @Injectable()
 export class UsersService{

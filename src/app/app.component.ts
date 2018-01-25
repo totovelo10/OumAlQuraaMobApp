@@ -8,14 +8,14 @@ import { CoursesPage } from '../pages/courses/courses';
 import { AuthentificationPage } from '../pages/authentification/authentification';
 import { ExercicesPage } from '../pages/exercices/exercices';
 import { ProgressionPage} from '../pages/progression/progression';
-import { EvaluationPage} from '../pages/evaluation/evaluation';
+//import { EvaluationPage} from '../pages/evaluation/evaluation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FCM } from '@ionic-native/fcm';
+//import { FCM } from '@ionic-native/fcm';
 import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
-import { storage } from 'firebase';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -34,7 +34,7 @@ export class MyApp {
     private file: File,
     private storage: Storage,
     public push: Push, 
-    private fcm: FCM
+    //private fcm: FCM
   ) {
     this.initializeApp();
 
